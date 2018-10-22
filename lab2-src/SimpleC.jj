@@ -1,0 +1,489 @@
+
+PARSER_BEGIN(SimpleC)
+
+/** Simple brace matcher. */
+public class SimpleC {
+
+  /** Main entry point. */
+  public static void main(String args[]) throws ParseException {
+    SimpleC parser = new SimpleC(System.in);
+  try{
+    parser.Input();
+  }catch(ParseException e){
+    int line = e.currentToken.beginLine+1;
+    //line += 1;
+    System.out.println(line+": Syntax Error");
+    System.exit(1);
+  }
+    System.out.println("Program compiled Successfully!");
+    //parser.Input();
+  }
+
+}
+
+PARSER_END(SimpleC)
+
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+|< "//" (~["\r","\n"])* >
+| < "/*" > : ML_COMMENT
+}
+<ML_COMMENT> SKIP :
+{
+  < "*/" > : DEFAULT
+| < ~[] >   
+}
+
+TOKEN :
+{
+ <LPARENT: "(">
+| <RPARENT: ")">
+| <VOID: "void">
+| <CHARSS: "char**">
+| <CHARS: "char*">
+| <CHAR: "char">
+| <LONG: "long">
+| <LONGS: "long*">
+| <INT: "int">
+| <ELSE: "else">
+| <IF: "if">
+| <WHILE: "while">
+| <DO: "do">
+| <FOR: "for">
+| <CONTINUE: "continue">
+| <BREAK: "break">
+| <RETURN: "return">
+| <DOUBLES: "double*">
+| <DOUBLE: "double">
+| <LCURLY: "{">
+| <RCURLY: "}">
+| <SEMICOLON: ";">
+| <LBRAC: "[">
+| <RBRAC: "]">
+
+| <COMMA: ",">
+| <EQUALEQUAL: "==">
+| <EQUAL: "=">
+| <AND: "&">
+| <OR: "||">
+| <ANDAND: "&&">
+| <NOTEQUAL: "!=">
+| <LESS: "<">
+| <GREATER: ">">
+| <LESSEQUAL: "<=">
+| <GREATEQUAL: ">=">
+| <PLUS: "+">
+| <MINUS: "-">
+| <MULTIPLE: "*">
+| <DIVIDE: "/">
+| <MOD: "%">
+
+|<ID: ((<LETTER>)(<LETTER> | <DIGIT>| "_")*)>
+| <CHAR_CONST: "'"((<PRINTING_CHAR>)|"0"|"\n"|"\r"|"0"<OCTAL> <OCTAL>)"'">
+| <STRING_CONST: "\""(<PRINTING_CHAR> | "0" <OCTAL> <OCTAL>| "\\" | ("0") <OCTAL> <OCTAL>| "\\" "x" <HEX_DIGIT><HEX_DIGIT>| "\\" ("n"|"t"|"r"|"0"))*"\"">
+| <DOUBLE_CONST: (<DIGIT>)*(".")?<DIGIT>(<DIGIT>)*(("e" | "E")("-" | "+")?<DIGIT>(<DIGIT>)*)?>
+| <INTEGER_CONST: <DIGIT>(<DIGIT>)*|<DIGIT>(<DIGIT>)*"_"<HEX_DIGIT>(<HEX_DIGIT>)*>
+| <PRINTING_CHAR: (<LETTER> | <DIGIT> | <OTHER_CHAR>)>
+| <DIGIT: (["0"-"9"])>
+| <OCTAL: ["0"-"7"]>
+| <HEX_DIGIT: <DIGIT>|["A"-"F"]|["a"-"f"]>
+| <LETTER: (["a"-"z","A"-"Z"])>
+| <OTHER_CHAR: " " | "!" | "#" | "$" | "%" | "&" | "(" | ")" | "*" | "+" | "," | "-" | "." | "/" | ":" | ";"| "<" | "=" | ">" | "?" | "@" | "[" | "]" | "^"| "_" | "`" | "{" | "|" | "}" | "~">
+}
+
+
+/**Root production. */
+void Input() :
+{}
+{
+ goal()<EOF>
+}
+
+void goal():
+{}
+{
+  program()
+}
+
+void program():
+{}
+{
+  //{System.out.println("program");}
+  function_or_val_list()
+}
+
+void function_or_val_list():
+{}
+{
+  //{System.out.println("function_or_val_list");}
+  function_or_val_list_P()
+}
+
+void function_or_val_list_P():
+{}
+{
+  //{System.out.println("function_or_val_list_P");}
+  var_type() function_or_val_list_P_P()
+  |{}
+}
+void function_or_val_list_P_P(): 
+{}
+{
+  //{System.out.println("function_or_val_list_P_P");}
+  <ID> function_or_val_list_P_P_P()
+}
+
+void function_or_val_list_P_P_P():
+{}
+{
+  //{System.out.println("function_or_val_list_P_P_P");}
+  function() function_or_val_list()
+  |global_var() function_or_val_list()
+  |{}
+}
+
+void function():
+{}
+{
+  //{System.out.println("function");}
+   <LPARENT> arguments() <RPARENT> compound_statement()
+}
+
+void arguments():
+{}
+{
+  //{System.out.println("arguments");}
+  arg_list()
+  |{}
+}
+
+void arg_list():
+{}
+{
+  //{System.out.println("arg_list");}
+  arg() arg_list_P()
+}
+
+void arg_list_P():
+{}
+{
+  //{System.out.println("arg_list_P");}
+  <COMMA> arg() arg_list_P()
+  |{}
+}
+
+void arg():
+{}
+{
+  //{System.out.println("arg");}
+  var_type() <ID>
+}
+
+void global_var(): 
+{}
+{
+  //{System.out.println("global_var");}
+  var_type() global_var_list() <SEMICOLON>
+}
+
+void global_var_list():
+{}
+{
+  //{System.out.println("global_var_list");}
+  global_var_list_P()
+}
+
+void global_var_list_P(): 
+{}
+{
+  //{System.out.println("global_var_list_P");}
+  <COMMA> <ID> global_var_list_P()
+  |{}
+}
+
+void var_type():
+{}
+{
+  //{System.out.println("var_type");}
+  <CHAR>
+  |<CHARS>
+  |<CHARSS>
+  |<DOUBLE>
+  |<DOUBLES>
+  |<LONG>
+  |<LONGS>
+  |<VOID>
+}
+
+void assignment(): 
+{}
+{
+  //{System.out.println("assignment");}
+  assignment_P()
+  }
+void assignment_P():
+  {}
+  {
+    //{System.out.println("assignment_P");}
+    <EQUAL> expression()
+    |<LBRAC> expression() <RBRAC> <EQUAL> expression()
+  }
+
+void call():
+  {}
+  {
+    //{System.out.println("call");}
+    <LPARENT> call_arguments() <RPARENT>
+  }
+void call_arg_list():
+{}
+{
+  //{System.out.println("call_arg_list");}
+  expression() call_arg_list_P()
+}
+void call_arg_list_P():
+{}
+{
+  //{System.out.println("call_arg_list_P");}
+  <COMMA> expression() call_arg_list_P()
+  |{}
+}
+
+void call_arguments():
+{}
+{
+  //{System.out.println("call_arguments");}
+  call_arg_list()
+  |{}
+}
+
+void expression():
+{}
+{
+  //{System.out.println("expression");}
+  logical_or_expr()
+}
+void logical_or_expr():
+{}
+{
+  //{System.out.println("logical_or_expr");}
+  logical_and_expr() logical_or_expr_P()
+}
+void logical_or_expr_P(): 
+{}
+{
+  //{System.out.println("logical_or_expr_P");}
+  <OR> logical_and_expr() logical_or_expr_P()
+  |{}
+}
+
+void logical_and_expr():
+{}
+{
+  //{System.out.println("logical_and_expr");}
+  eqaulity_expr() logical_and_expr_P()
+}
+
+void logical_and_expr_P():
+{}
+{
+  //{System.out.println("logical_and_expr_P");}
+  <ANDAND> eqaulity_expr() logical_and_expr_P()
+  |{}
+}
+
+void eqaulity_expr():
+{}
+{
+  //{System.out.println("eqaulity_expr");}
+  relational_expr() eqaulity_expr_P()
+}
+
+void eqaulity_expr_P():
+{}
+{
+  //{System.out.println("eqaulity_expr_P");}
+  <EQUALEQUAL> relational_expr() eqaulity_expr_P()
+  |<NOTEQUAL> relational_expr() eqaulity_expr_P()
+  |{}
+}
+
+void relational_expr():
+{}
+{
+  //{System.out.println("relational_expr");}
+  additive_expr() relational_expr_P()
+}
+void relational_expr_P():
+{}
+{
+  //{System.out.println("relational_expr_P");}
+  <LESS> additive_expr() relational_expr_P()
+  |<GREATER> additive_expr() relational_expr_P()
+  |<LESSEQUAL> additive_expr() relational_expr_P()
+  |<GREATEQUAL> additive_expr() relational_expr_P()
+  |{}
+}
+
+void additive_expr():
+{}
+{
+  //{System.out.println("additive_expr");}
+  multiplicative_expr() additive_expr_P()
+}
+
+void additive_expr_P():
+{}
+{
+  //{System.out.println("additive_expr_P");}
+  <PLUS> multiplicative_expr() additive_expr_P()
+  |<MINUS> multiplicative_expr() additive_expr_P()
+  |{}
+}
+
+void multiplicative_expr():
+{}
+{
+  //{System.out.println("multiplicative_expr");}
+  unary_expr() multiplicative_expr_P()
+}
+void multiplicative_expr_P():
+{}
+{
+  //{System.out.println("multiplicative_expr_P");}
+  <MULTIPLE> unary_expr() multiplicative_expr_P()
+  |<DIVIDE> unary_expr() multiplicative_expr_P()
+  |<MOD> unary_expr() multiplicative_expr_P()
+  |{}
+}
+
+void unary_expr():
+{}
+{
+  //{System.out.println("unary_expr");}
+  primary_expr()
+  |<PLUS> unary_expr()
+  |<MINUS> unary_expr()
+  | <AND> unary_expr()
+  |<MULTIPLE> unary_expr()
+}
+
+void primary_expr():
+{}
+{
+  //{System.out.println("primary_expr");}
+  <STRING_CONST>
+  |<ID> primary_expr_P()
+  |<INTEGER_CONST>
+  |<DOUBLE_CONST>
+  |<CHAR_CONST>
+  |<LPARENT> expression() <RPARENT>
+}
+void primary_expr_P():
+{}
+{
+  //{System.out.println("primary_expr_P");}
+  primary_expr_P_P()
+  |call()
+  |{}
+}
+
+void primary_expr_P_P():
+{}
+{
+  //{System.out.println("primary_expr_P_P");}
+  <LBRAC>expression()<RBRAC>
+}
+
+void compound_statement():
+{}
+{
+  //{System.out.println("compound_statement");}
+  <LCURLY> statement_list() <RCURLY>
+}
+
+void statement_list():
+{}
+{
+  //{System.out.println("statement_list");}
+  statement_list_P()
+}
+
+void statement_list_P():
+{}
+{
+  //{System.out.println("statement_list_P");}
+  statement() statement_list_P()
+  |{}
+}
+
+void local_var():
+{}
+{
+  //{System.out.println("local_var");}
+  var_type() local_var_list() <SEMICOLON>
+}
+
+void local_var_list():
+{}
+{
+  //{System.out.println("local_var_list");}
+  <ID> local_var_list_P()
+}
+
+void local_var_list_P():
+{}
+{
+  //{System.out.println("local_var_list_P");}
+  <COMMA> <ID> local_var_list_P()
+  |{}
+}
+void statement():
+{}
+{
+  //{System.out.println("statement");}
+  <ID> statement_P()
+  |local_var()
+  |compound_statement()
+  |<IF> <LPARENT> expression() <RPARENT> statement() else_optional()
+  |<WHILE> <LPARENT> expression() <RPARENT>  statement()
+  |<DO> statement() <WHILE> <LPARENT> expression() <RPARENT> <SEMICOLON>
+  |<FOR> <LPARENT> <ID>assignment() <SEMICOLON> expression() <SEMICOLON> <ID>assignment() <RPARENT> statement()
+  |jump_statement()
+}
+
+void statement_P():
+{}
+{
+  //{System.out.println("statement_P");}
+  call() <SEMICOLON>
+  |assignment()<SEMICOLON>
+}
+void else_optional():
+{}
+{
+  //{System.out.println("else_optional");}
+  <ELSE> statement()
+  |{}
+}
+void jump_statement():
+{}
+{
+  //{System.out.println("jump_statement");}
+  <CONTINUE><SEMICOLON>
+  |<BREAK><SEMICOLON>
+  |<RETURN>return_val_opt() <SEMICOLON>
+}
+
+void return_val_opt():
+{}
+{
+  //{System.out.println("return_val_opt");}
+  expression()
+  |{}
+}
+

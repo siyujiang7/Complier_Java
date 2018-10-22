@@ -1,0 +1,17 @@
+Siyu Jiang cs352
+1. 
+	SimpleC cannot initialize a variabe when creating it;
+	SimpleC does not have struct;
+	SimpleC does not have constant variable;
+	SimpleC does not have typedef;
+	SimpleC cannot import library;
+
+2. in order to match the exact stage in the grammar, instead of being matched by a ambiguous upper statement;
+
+3.
+	a. valid;
+	b. valid;
+	c. invalid, because once the return_val_opt stage is entered, there is not way to recursively travel to another return_val_opt stage to retrun again;
+	d. invalid, because it is not allowed in simpleC to initialize a variable when creating it;
+	e. invalid, because the grammar does not allow defining a function inside a function;
+	f. invalid, this violate the grammar pattern of FOR loop in simpleC;

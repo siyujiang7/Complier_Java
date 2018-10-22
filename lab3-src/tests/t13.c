@@ -1,0 +1,1 @@
+long main(){foo();}

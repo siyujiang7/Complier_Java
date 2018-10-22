@@ -1,0 +1,1 @@
+long main(){for(i=0; i<l;i=0) for(j=0; j<k; j=0) foo();}

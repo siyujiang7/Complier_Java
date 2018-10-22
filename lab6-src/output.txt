@@ -1,0 +1,780 @@
+***INPUT***
+
+     1	void printArray( long* a, long left, long right) {
+     2	  long i;
+     3	  for (i = left; i <= right; i = i+1) {
+     4	    printf("%d\n", a[i]);
+     5	  }
+     6	}
+     7	
+     8	void print(char* s) {
+     9	  printf("==%s==\n", s);
+    10	}
+    11	
+    12	long quicksortsubrange(long* a, long left, long right)
+    13	{
+    14	  long x, l, g, tmp;
+    15	  if (left >= right) {
+    16	    return 0;
+    17	  }
+    18	
+    19	  x = a[right];
+    20	
+    21	  l = left;
+    22	  g = right - 1;
+    23	
+    24	  while (l<g) {
+    25	    while (l<g && a[l]<x) {
+    26	      l = l + 1;
+    27	    }
+    28	
+    29	    while (l<g && a[g]>x) {
+    30	      g = g - 1;
+    31	    }
+    32	
+    33	    if (l<g) {
+    34	      tmp = a[l];
+    35	      a[l] = a[g];
+    36	      a[g]=tmp;
+    37	    }
+    38	  }
+    39	
+    40	  a[right]=a[l];
+    41	  a[l]=x;
+    42	
+    43	  quicksortsubrange(a, left, l - 1);
+    44	  quicksortsubrange(a,g+1, right);
+    45	
+    46	}
+    47	
+    48	void quicksort(long* a, long n) {
+    49	  quicksortsubrange(a, 0, n - 1);
+    50	}
+    51	
+    52	void main() {
+    53	  long n;
+    54	  long* a;
+    55	
+    56	  print("Hello");
+    57	  
+    58	  n = 10;
+    59	  
+    60	  a = malloc(n*8);
+    61	
+    62	  a[0] = 8;
+    63	  a[1] = 7;
+    64	  a[2] = 1;
+    65	  a[3] = 9;
+    66	  a[4] = 11;
+    67	  a[5] = 83;
+    68	  a[6] = 7;
+    69	  a[7] = 13;
+    70	  a[8] = 94;
+    71	  a[9] = 1;
+    72	
+    73	  printf("-------- Before -------\n");
+    74	  printArray(a, 0, n - 1);
+    75	  quicksort(a, n);
+    76	  printf("-------- After -------\n");
+    77	  printArray(a, 0, n - 1);
+    78	}
+printArray:
+	pushq	%rbx
+	pushq	%r10
+	pushq	%r13
+	pushq	%r14
+	pushq	%r15
+	subq	$256, %rsp
+	# save argument
+	# adding argument var a of type long*
+	# adding argument var left of type long
+	# adding argument var right of type long
+	movq	%rdx, 240(%rsp)
+	movq	%rsi, 248(%rsp)
+	movq	%rdi, 256(%rsp)
+	# adding local var i of type long
+	# init
+	# enter ID
+	# push local var left
+	movq	248(%rsp), %rbx
+	# assign to local var i
+	movq	%rbx, 232(%rsp)
+start_L0:
+	# condition
+	# enter ID
+	# push local var i
+	movq	232(%rsp), %rbx
+	# enter ID
+	# push local var right
+	movq	240(%rsp), %r10
+	# <=
+	cmpq	%rbx, %r10
+	movq	$0, %r10
+	movq	$1, %rbx
+	cmovge	%rbx, %r10
+	movq	%r10, %rbx
+	cmpq	$0, %rbx
+	jg LoopBody_L0
+	jmp end_L0
+Update_L0:
+	# enter ID
+	# push local var i
+	movq	232(%rsp), %rbx
+	# push num 1 top=1
+	movq	$1, %r10
+	# +
+	addq	%r10, %rbx
+	# assign to local var i
+	movq	%rbx, 232(%rsp)
+	jmp start_L0
+LoopBody_L0:
+	# enter call
+	movq	$L6, %rbx
+	# enter ID
+	# push local var i
+	movq	232(%rsp), %r10
+	imulq	$8, %r10
+	movq	256(%rsp), %r13
+	addq	%r13, %r10
+	movq	(%r10), %r10
+	movq	%r10, %rsi
+	movq	%rbx, %rdi
+	movq	$0, %rax
+	call	printf
+	movq	%rax, %rbx
+	jmp Update_L0
+end_L0:
+Return_printArray:
+	addq	$256, %rsp
+	# restore registers
+	popq	%r15
+	popq	%r14
+	popq	%r13
+	popq	%r10
+	popq	%rbx
+	retq
+print:
+	pushq	%rbx
+	pushq	%r10
+	pushq	%r13
+	pushq	%r14
+	pushq	%r15
+	subq	$256, %rsp
+	# save argument
+	# adding argument var s of type char*
+	movq	%rdi, 256(%rsp)
+	# enter call
+	movq	$L7, %rbx
+	# enter ID
+	# push local var s
+	movq	256(%rsp), %r10
+	movq	%r10, %rsi
+	movq	%rbx, %rdi
+	movq	$0, %rax
+	call	printf
+	movq	%rax, %rbx
+Return_print:
+	addq	$256, %rsp
+	# restore registers
+	popq	%r15
+	popq	%r14
+	popq	%r13
+	popq	%r10
+	popq	%rbx
+	retq
+quicksortsubrange:
+	pushq	%rbx
+	pushq	%r10
+	pushq	%r13
+	pushq	%r14
+	pushq	%r15
+	subq	$256, %rsp
+	# save argument
+	# adding argument var a of type long*
+	# adding argument var left of type long
+	# adding argument var right of type long
+	movq	%rdx, 240(%rsp)
+	movq	%rsi, 248(%rsp)
+	movq	%rdi, 256(%rsp)
+	# adding local var x of type long
+	# adding local var l of type long
+	# adding local var g of type long
+	# adding local var tmp of type long
+	# enter ID
+	# push local var left
+	movq	248(%rsp), %rbx
+	# enter ID
+	# push local var right
+	movq	240(%rsp), %r10
+	# >=
+	cmpq	%r10, %rbx
+	movq	$0, %r10
+	movq	$1, %rbx
+	cmovge	%rbx, %r10
+	movq	%r10, %rbx
+	cmpq	$0, %rbx
+	jg BodyStart_L1
+	jmp Else_L1
+BodyStart_L1:
+	# get retVal
+	# push num 0 top=0
+	movq	$0, %rbx
+	movq	%rbx, %rax
+	jmp Return_quicksortsubrange
+	jmp Continue_L1
+Else_L1:
+Continue_L1:
+	# enter ID
+	# push local var right
+	movq	240(%rsp), %rbx
+	imulq	$8, %rbx
+	movq	256(%rsp), %r10
+	addq	%r10, %rbx
+	movq	(%rbx), %rbx
+	# assign to local var x
+	movq	%rbx, 232(%rsp)
+	# enter ID
+	# push local var left
+	movq	248(%rsp), %rbx
+	# assign to local var l
+	movq	%rbx, 224(%rsp)
+	# enter ID
+	# push local var right
+	movq	240(%rsp), %rbx
+	# push num 1 top=1
+	movq	$1, %r10
+	# -
+	subq	%r10, %rbx
+	# assign to local var g
+	movq	%rbx, 216(%rsp)
+start_L5:
+	# enter ID
+	# push local var l
+	movq	224(%rsp), %rbx
+	# enter ID
+	# push local var g
+	movq	216(%rsp), %r10
+	# <
+	cmpq	%rbx, %r10
+	movq	$0, %r10
+	movq	$1, %rbx
+	cmovg	%rbx, %r10
+	movq	%r10, %rbx
+	# while condition
+	cmpq	$0, %rbx
+	je	end_L5
+start_L2:
+	# enter ID
+	# push local var l
+	movq	224(%rsp), %rbx
+	# enter ID
+	# push local var g
+	movq	216(%rsp), %r10
+	# <
+	cmpq	%rbx, %r10
+	movq	$0, %r10
+	movq	$1, %rbx
+	cmovg	%rbx, %r10
+	movq	%r10, %rbx
+	# enter ID
+	# push local var l
+	movq	224(%rsp), %r10
+	imulq	$8, %r10
+	movq	256(%rsp), %r13
+	addq	%r13, %r10
+	movq	(%r10), %r10
+	# enter ID
+	# push local var x
+	movq	232(%rsp), %r13
+	# <
+	cmpq	%r10, %r13
+	movq	$0, %r13
+	movq	$1, %r10
+	cmovg	%r10, %r13
+	movq	%r13, %r10
+	# &&
+	# while condition
+	cmpq	$0, %r10
+	je	end_L2
+	# enter ID
+	# push local var l
+	movq	224(%rsp), %r10
+	# push num 1 top=2
+	movq	$1, %r13
+	# +
+	addq	%r13, %r10
+	# assign to local var l
+	movq	%r10, 224(%rsp)
+	jmp	start_L2
+end_L2:
+start_L3:
+	# enter ID
+	# push local var l
+	movq	224(%rsp), %r10
+	# enter ID
+	# push local var g
+	movq	216(%rsp), %r13
+	# <
+	cmpq	%r10, %r13
+	movq	$0, %r13
+	movq	$1, %r10
+	cmovg	%r10, %r13
+	movq	%r13, %r10
+	# enter ID
+	# push local var g
+	movq	216(%rsp), %r13
+	imulq	$8, %r13
+	movq	256(%rsp), %r14
+	addq	%r14, %r13
+	movq	(%r13), %r13
+	# enter ID
+	# push local var x
+	movq	232(%rsp), %r14
+	# >
+	cmpq	%r14, %r13
+	movq	$0, %r14
+	movq	$1, %r13
+	cmovg	%r13, %r14
+	movq	%r14, %r13
+	# &&
+	# while condition
+	cmpq	$0, %r13
+	je	end_L3
+	# enter ID
+	# push local var g
+	movq	216(%rsp), %r13
+	# push num 1 top=3
+	movq	$1, %r14
+	# -
+	subq	%r14, %r13
+	# assign to local var g
+	movq	%r13, 216(%rsp)
+	jmp	start_L3
+end_L3:
+	# enter ID
+	# push local var l
+	movq	224(%rsp), %r13
+	# enter ID
+	# push local var g
+	movq	216(%rsp), %r14
+	# <
+	cmpq	%r13, %r14
+	movq	$0, %r14
+	movq	$1, %r13
+	cmovg	%r13, %r14
+	movq	%r14, %r13
+	cmpq	$0, %r13
+	jg BodyStart_L4
+	jmp Else_L4
+BodyStart_L4:
+	# enter ID
+	# push local var l
+	movq	224(%rsp), %r13
+	imulq	$8, %r13
+	movq	256(%rsp), %r14
+	addq	%r14, %r13
+	movq	(%r13), %r13
+	# assign to local var tmp
+	movq	%r13, 208(%rsp)
+	# enter ID
+	# push local var l
+	movq	224(%rsp), %r13
+	imulq	$8, %r13
+	movq	256(%rsp), %r14
+	addq	%r14, %r13
+	# assign to local array a
+	# enter ID
+	# push local var g
+	movq	216(%rsp), %r14
+	imulq	$8, %r14
+	movq	256(%rsp), %r15
+	addq	%r15, %r14
+	movq	(%r14), %r14
+	movq	%r14, (%r13)
+	# enter ID
+	# push local var g
+	movq	216(%rsp), %r13
+	imulq	$8, %r13
+	movq	256(%rsp), %r14
+	addq	%r14, %r13
+	# assign to local array a
+	# enter ID
+	# push local var tmp
+	movq	208(%rsp), %r14
+	movq	%r14, (%r13)
+	jmp Continue_L4
+Else_L4:
+Continue_L4:
+	jmp	start_L5
+end_L5:
+	# enter ID
+	# push local var right
+	movq	240(%rsp), %r13
+	imulq	$8, %r13
+	movq	256(%rsp), %r14
+	addq	%r14, %r13
+	# assign to local array a
+	# enter ID
+	# push local var l
+	movq	224(%rsp), %r14
+	imulq	$8, %r14
+	movq	256(%rsp), %r15
+	addq	%r15, %r14
+	movq	(%r14), %r14
+	movq	%r14, (%r13)
+	# enter ID
+	# push local var l
+	movq	224(%rsp), %r13
+	imulq	$8, %r13
+	movq	256(%rsp), %r14
+	addq	%r14, %r13
+	# assign to local array a
+	# enter ID
+	# push local var x
+	movq	232(%rsp), %r14
+	movq	%r14, (%r13)
+	# enter call
+	# enter ID
+	# push local var a
+	movq	256(%rsp), %r13
+	# enter ID
+	# push local var left
+	movq	248(%rsp), %r14
+	# enter ID
+	# push local var l
+	movq	224(%rsp), %r15
+	# push num 1 top=5
+	# offset push
+	movq	%r15, 0(%rsp)
+	movq	$1, %r15
+	# -
+	movq	0(%rsp), %r15
+	subq	%r15, %r15
+	movq	%r15, %rdx
+	movq	%r14, %rsi
+	movq	%r13, %rdi
+	call	quicksortsubrange
+	movq	%rax, %r13
+	# enter call
+	# enter ID
+	# push local var a
+	movq	256(%rsp), %rbx
+	# enter ID
+	# push local var g
+	movq	216(%rsp), %r10
+	# push num 1 top=2
+	movq	$1, %r13
+	# +
+	addq	%r13, %r10
+	# enter ID
+	# push local var right
+	movq	240(%rsp), %r13
+	movq	%r13, %rdx
+	movq	%r10, %rsi
+	movq	%rbx, %rdi
+	call	quicksortsubrange
+	movq	%rax, %rbx
+Return_quicksortsubrange:
+	addq	$256, %rsp
+	# restore registers
+	popq	%r15
+	popq	%r14
+	popq	%r13
+	popq	%r10
+	popq	%rbx
+	retq
+quicksort:
+	pushq	%rbx
+	pushq	%r10
+	pushq	%r13
+	pushq	%r14
+	pushq	%r15
+	subq	$256, %rsp
+	# save argument
+	# adding argument var a of type long*
+	# adding argument var n of type long
+	movq	%rsi, 248(%rsp)
+	movq	%rdi, 256(%rsp)
+	# enter call
+	# enter ID
+	# push local var a
+	movq	256(%rsp), %rbx
+	# push num 0 top=1
+	movq	$0, %r10
+	# enter ID
+	# push local var n
+	movq	248(%rsp), %r13
+	# push num 1 top=3
+	movq	$1, %r14
+	# -
+	subq	%r14, %r13
+	movq	%r13, %rdx
+	movq	%r10, %rsi
+	movq	%rbx, %rdi
+	call	quicksortsubrange
+	movq	%rax, %rbx
+Return_quicksort:
+	addq	$256, %rsp
+	# restore registers
+	popq	%r15
+	popq	%r14
+	popq	%r13
+	popq	%r10
+	popq	%rbx
+	retq
+main:
+	pushq	%rbx
+	pushq	%r10
+	pushq	%r13
+	pushq	%r14
+	pushq	%r15
+	subq	$256, %rsp
+	# save argument
+	# adding local var n of type long
+	# adding local var a of type long*
+	# enter call
+	movq	$L8, %rbx
+	movq	%rbx, %rdi
+	call	print
+	movq	%rax, %rbx
+	# push num 10 top=0
+	movq	$10, %rbx
+	# assign to local var n
+	movq	%rbx, 256(%rsp)
+	# enter call
+	# enter ID
+	# push local var n
+	movq	256(%rsp), %rbx
+	# push num 8 top=1
+	movq	$8, %r10
+	# *
+	imulq	%r10, %rbx
+	movq	%rbx, %rdi
+	call	malloc
+	movq	%rax, %rbx
+	# assign to local var a
+	movq	%rbx, 248(%rsp)
+	# push num 0 top=0
+	movq	$0, %rbx
+	imulq	$8, %rbx
+	movq	248(%rsp), %r10
+	addq	%r10, %rbx
+	# assign to local array a
+	# push num 8 top=1
+	movq	$8, %r10
+	movq	%r10, (%rbx)
+	# push num 1 top=0
+	movq	$1, %rbx
+	imulq	$8, %rbx
+	movq	248(%rsp), %r10
+	addq	%r10, %rbx
+	# assign to local array a
+	# push num 7 top=1
+	movq	$7, %r10
+	movq	%r10, (%rbx)
+	# push num 2 top=0
+	movq	$2, %rbx
+	imulq	$8, %rbx
+	movq	248(%rsp), %r10
+	addq	%r10, %rbx
+	# assign to local array a
+	# push num 1 top=1
+	movq	$1, %r10
+	movq	%r10, (%rbx)
+	# push num 3 top=0
+	movq	$3, %rbx
+	imulq	$8, %rbx
+	movq	248(%rsp), %r10
+	addq	%r10, %rbx
+	# assign to local array a
+	# push num 9 top=1
+	movq	$9, %r10
+	movq	%r10, (%rbx)
+	# push num 4 top=0
+	movq	$4, %rbx
+	imulq	$8, %rbx
+	movq	248(%rsp), %r10
+	addq	%r10, %rbx
+	# assign to local array a
+	# push num 11 top=1
+	movq	$11, %r10
+	movq	%r10, (%rbx)
+	# push num 5 top=0
+	movq	$5, %rbx
+	imulq	$8, %rbx
+	movq	248(%rsp), %r10
+	addq	%r10, %rbx
+	# assign to local array a
+	# push num 83 top=1
+	movq	$83, %r10
+	movq	%r10, (%rbx)
+	# push num 6 top=0
+	movq	$6, %rbx
+	imulq	$8, %rbx
+	movq	248(%rsp), %r10
+	addq	%r10, %rbx
+	# assign to local array a
+	# push num 7 top=1
+	movq	$7, %r10
+	movq	%r10, (%rbx)
+	# push num 7 top=0
+	movq	$7, %rbx
+	imulq	$8, %rbx
+	movq	248(%rsp), %r10
+	addq	%r10, %rbx
+	# assign to local array a
+	# push num 13 top=1
+	movq	$13, %r10
+	movq	%r10, (%rbx)
+	# push num 8 top=0
+	movq	$8, %rbx
+	imulq	$8, %rbx
+	movq	248(%rsp), %r10
+	addq	%r10, %rbx
+	# assign to local array a
+	# push num 94 top=1
+	movq	$94, %r10
+	movq	%r10, (%rbx)
+	# push num 9 top=0
+	movq	$9, %rbx
+	imulq	$8, %rbx
+	movq	248(%rsp), %r10
+	addq	%r10, %rbx
+	# assign to local array a
+	# push num 1 top=1
+	movq	$1, %r10
+	movq	%r10, (%rbx)
+	# enter call
+	movq	$L9, %rbx
+	movq	%rbx, %rdi
+	movq	$0, %rax
+	call	printf
+	movq	%rax, %rbx
+	# enter call
+	# enter ID
+	# push local var a
+	movq	248(%rsp), %rbx
+	# push num 0 top=1
+	movq	$0, %r10
+	# enter ID
+	# push local var n
+	movq	256(%rsp), %r13
+	# push num 1 top=3
+	movq	$1, %r14
+	# -
+	subq	%r14, %r13
+	movq	%r13, %rdx
+	movq	%r10, %rsi
+	movq	%rbx, %rdi
+	call	printArray
+	movq	%rax, %rbx
+	# enter call
+	# enter ID
+	# push local var a
+	movq	248(%rsp), %rbx
+	# enter ID
+	# push local var n
+	movq	256(%rsp), %r10
+	movq	%r10, %rsi
+	movq	%rbx, %rdi
+	call	quicksort
+	movq	%rax, %rbx
+	# enter call
+	movq	$L10, %rbx
+	movq	%rbx, %rdi
+	movq	$0, %rax
+	call	printf
+	movq	%rax, %rbx
+	# enter call
+	# enter ID
+	# push local var a
+	movq	248(%rsp), %rbx
+	# push num 0 top=1
+	movq	$0, %r10
+	# enter ID
+	# push local var n
+	movq	256(%rsp), %r13
+	# push num 1 top=3
+	movq	$1, %r14
+	# -
+	subq	%r14, %r13
+	movq	%r13, %rdx
+	movq	%r10, %rsi
+	movq	%rbx, %rdi
+	call	printArray
+	movq	%rax, %rbx
+Return_main:
+	addq	$256, %rsp
+	# restore registers
+	popq	%r15
+	popq	%r14
+	popq	%r13
+	popq	%r10
+	popq	%rbx
+	retq
+L6:
+	.string "%d\n"
+L7:
+	.string "==%s==\n"
+L8:
+	.string "Hello"
+L9:
+	.string "-------- Before -------\n"
+L10:
+	.string "-------- After -------\n"
+.text
+	.globl	printArray
+	.globl	print
+	.globl	quicksortsubrange
+	.globl	quicksort
+	.globl	main
+
+***OUTPUT***
+==Hello==
+-------- Before -------
+8
+7
+1
+9
+11
+83
+7
+13
+94
+1
+-------- After -------
+1
+1
+7
+7
+8
+9
+11
+13
+94
+83
+
+***EXPECTED OUTPUT***
+==Hello==
+-------- Before -------
+8
+7
+1
+9
+11
+83
+7
+13
+94
+1
+-------- After -------
+1
+1
+7
+7
+8
+9
+13
+11
+83
+94

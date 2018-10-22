@@ -1,0 +1,11 @@
+char* x;
+char* y;
+long main()
+{
+}
+long d;
+long y;
+long eee;
+double notmain()
+{
+}

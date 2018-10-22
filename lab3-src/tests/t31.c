@@ -1,0 +1,1 @@
+long main(){long l;}

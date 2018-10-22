@@ -1,0 +1,1685 @@
+[master e1aa2d3] Commit
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+[master 76b1740] Commit
+ 1 file changed, 5 insertions(+), 6 deletions(-)
+[master 4d3508a] Commit
+ Committer: CS352 Account <cs352@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 2 insertions(+), 5 deletions(-)
+[master 106e840] Commit
+ Committer: CS352 Account <cs352@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+On branch master
+Untracked files:
+	.local.git.out
+
+nothing added to commit but untracked files present
+[master fba8d92] Commit
+ 3 files changed, 407 insertions(+), 63 deletions(-)
+ rewrite SimpleC.jj (88%)
+[master b02cee4] Commit
+ 1 file changed, 15 insertions(+), 17 deletions(-)
+[master 54f121a] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 1ec8df9] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master f87723c] Commit
+ 1 file changed, 1 deletion(-)
+[master 320c95b] Commit
+ 1 file changed, 1 deletion(-)
+[master 26ec815] Commit
+ 8 files changed, 3220 insertions(+), 2 deletions(-)
+ create mode 100644 ParseException.java
+ create mode 100644 SimpleC.java
+ create mode 100644 SimpleCConstants.java
+ create mode 100644 SimpleCTokenManager.java
+ create mode 100644 SimpleCharStream.java
+ create mode 100644 Token.java
+ create mode 100644 TokenMgrError.java
+[master 9659a38] Commit
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+[master 811b230] Commit
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+On branch master
+Untracked files:
+	.local.git.out
+	3
+	ExprEval$Token.class
+	ExprEval$TokenType.class
+	ExprEval.class
+	Lexer$Token.class
+	Lexer.class
+	ParseException.class
+	Parser.class
+	SimpleC.class
+	SimpleCConstants.class
+	SimpleCTokenManager.class
+	SimpleCharStream.class
+	Token.class
+	TokenMgrError.class
+	TokenType.class
+
+nothing added to commit but untracked files present
+On branch master
+Untracked files:
+	.local.git.out
+	3
+	ExprEval$Token.class
+	ExprEval$TokenType.class
+	ExprEval.class
+	Lexer$Token.class
+	Lexer.class
+	ParseException.class
+	Parser.class
+	SimpleC.class
+	SimpleCConstants.class
+	SimpleCTokenManager.class
+	SimpleCharStream.class
+	Token.class
+	TokenMgrError.class
+	TokenType.class
+	test.c
+
+nothing added to commit but untracked files present
+On branch master
+Untracked files:
+	.local.git.out
+	3
+	ExprEval$Token.class
+	ExprEval$TokenType.class
+	ExprEval.class
+	Lexer$Token.class
+	Lexer.class
+	ParseException.class
+	Parser.class
+	SimpleC.class
+	SimpleCConstants.class
+	SimpleCTokenManager.class
+	SimpleCharStream.class
+	Token.class
+	TokenMgrError.class
+	TokenType.class
+	test.c
+
+nothing added to commit but untracked files present
+[master 8e178f7] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master b7c7d75] Commit
+ 2 files changed, 235 insertions(+), 74 deletions(-)
+[master 13ad6a8] Commit
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+[master 5b282cf] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 9116626] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 3a51783] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master f386e6a] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+On branch master
+Untracked files:
+	.local.git.out
+	3
+	ExprEval$Token.class
+	ExprEval$TokenType.class
+	ExprEval.class
+	Lexer$Token.class
+	Lexer.class
+	ParseException.class
+	Parser.class
+	SimpleC.class
+	SimpleCConstants.class
+	SimpleCTokenManager.class
+	SimpleCharStream.class
+	Token.class
+	TokenMgrError.class
+	TokenType.class
+	test.c
+
+nothing added to commit but untracked files present
+On branch master
+Untracked files:
+	.local.git.out
+	3
+	ExprEval$Token.class
+	ExprEval$TokenType.class
+	ExprEval.class
+	Lexer$Token.class
+	Lexer.class
+	ParseException.class
+	Parser.class
+	SimpleC.class
+	SimpleCConstants.class
+	SimpleCTokenManager.class
+	SimpleCharStream.class
+	Token.class
+	TokenMgrError.class
+	TokenType.class
+	test.c
+
+nothing added to commit but untracked files present
+On branch master
+Untracked files:
+	.local.git.out
+	3
+	ExprEval$Token.class
+	ExprEval$TokenType.class
+	ExprEval.class
+	Lexer$Token.class
+	Lexer.class
+	ParseException.class
+	Parser.class
+	SimpleC.class
+	SimpleCConstants.class
+	SimpleCTokenManager.class
+	SimpleCharStream.class
+	Token.class
+	TokenMgrError.class
+	TokenType.class
+	test.c
+
+nothing added to commit but untracked files present
+On branch master
+Untracked files:
+	.local.git.out
+	3
+	ExprEval$Token.class
+	ExprEval$TokenType.class
+	ExprEval.class
+	Lexer$Token.class
+	Lexer.class
+	ParseException.class
+	Parser.class
+	SimpleC.class
+	SimpleCConstants.class
+	SimpleCTokenManager.class
+	SimpleCharStream.class
+	Token.class
+	TokenMgrError.class
+	TokenType.class
+	test.c
+
+nothing added to commit but untracked files present
+[master 769a87c] Commit
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+[master 759913c] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 9fff5b1] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master ecf9f1e] Commit
+ 1 file changed, 1 insertion(+)
+[master 48e7474] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 5b96851] Commit
+ 1 file changed, 2 deletions(-)
+On branch master
+Untracked files:
+	.local.git.out
+	3
+	ExprEval$Token.class
+	ExprEval$TokenType.class
+	ExprEval.class
+	Lexer$Token.class
+	Lexer.class
+	ParseException.class
+	Parser.class
+	SimpleC.class
+	SimpleCConstants.class
+	SimpleCTokenManager.class
+	SimpleCharStream.class
+	Token.class
+	TokenMgrError.class
+	TokenType.class
+	test.c
+
+nothing added to commit but untracked files present
+On branch master
+Untracked files:
+	.local.git.out
+	3
+	ExprEval$Token.class
+	ExprEval$TokenType.class
+	ExprEval.class
+	Lexer$Token.class
+	Lexer.class
+	ParseException.class
+	Parser.class
+	SimpleC.class
+	SimpleCConstants.class
+	SimpleCTokenManager.class
+	SimpleCharStream.class
+	Token.class
+	TokenMgrError.class
+	TokenType.class
+	test.c
+
+nothing added to commit but untracked files present
+[master 31729f8] Commit
+ 1 file changed, 7 insertions(+)
+[master bd24d97] Commit
+ 1 file changed, 1 deletion(-)
+[master 8124354] Commit
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+[master 324e0a0] Commit
+ 1 file changed, 1 insertion(+)
+[master bf61c49] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 9ba35cb] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master bbdad16] Commit
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+[master aa7f0a1] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master a25e618] Commit
+ 1 file changed, 3 insertions(+), 6 deletions(-)
+[master b6fd763] Commit
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+On branch master
+Untracked files:
+	.local.git.out
+	3
+	ExprEval$Token.class
+	ExprEval$TokenType.class
+	ExprEval.class
+	Lexer$Token.class
+	Lexer.class
+	ParseException.class
+	Parser.class
+	SimpleC.class
+	SimpleCConstants.class
+	SimpleCTokenManager.class
+	SimpleCharStream.class
+	Token.class
+	TokenMgrError.class
+	TokenType.class
+	test.c
+
+nothing added to commit but untracked files present
+On branch master
+Untracked files:
+	.local.git.out
+	3
+	ExprEval$Token.class
+	ExprEval$TokenType.class
+	ExprEval.class
+	Lexer$Token.class
+	Lexer.class
+	ParseException.class
+	Parser.class
+	SimpleC.class
+	SimpleCConstants.class
+	SimpleCTokenManager.class
+	SimpleCharStream.class
+	Token.class
+	TokenMgrError.class
+	TokenType.class
+	test.c
+
+nothing added to commit but untracked files present
+[master 12bab4d] Commit
+ 1 file changed, 34 insertions(+), 1 deletion(-)
+On branch master
+Untracked files:
+	.local.git.out
+	3
+	ExprEval$Token.class
+	ExprEval$TokenType.class
+	ExprEval.class
+	Lexer$Token.class
+	Lexer.class
+	ParseException.class
+	Parser.class
+	SimpleC.class
+	SimpleCConstants.class
+	SimpleCTokenManager.class
+	SimpleCharStream.class
+	Token.class
+	TokenMgrError.class
+	TokenType.class
+	main$.class
+	main$delayedInit$body.class
+	main.class
+	test.c
+
+nothing added to commit but untracked files present
+On branch master
+Untracked files:
+	.local.git.out
+	3
+	ExprEval$Token.class
+	ExprEval$TokenType.class
+	ExprEval.class
+	Lexer$Token.class
+	Lexer.class
+	ParseException.class
+	Parser.class
+	SimpleC.class
+	SimpleCConstants.class
+	SimpleCTokenManager.class
+	SimpleCharStream.class
+	Token.class
+	TokenMgrError.class
+	TokenType.class
+	main$.class
+	main$delayedInit$body.class
+	main.class
+	test.c
+
+nothing added to commit but untracked files present
+On branch master
+Untracked files:
+	.local.git.out
+	3
+	ExprEval$Token.class
+	ExprEval$TokenType.class
+	ExprEval.class
+	Lexer$Token.class
+	Lexer.class
+	ParseException.class
+	Parser.class
+	SimpleC.class
+	SimpleCConstants.class
+	SimpleCTokenManager.class
+	SimpleCharStream.class
+	Token.class
+	TokenMgrError.class
+	TokenType.class
+	main$.class
+	main$delayedInit$body.class
+	main.class
+	test.c
+
+nothing added to commit but untracked files present
+On branch master
+Untracked files:
+	.local.git.out
+	3
+	ExprEval$Token.class
+	ExprEval$TokenType.class
+	ExprEval.class
+	Lexer$Token.class
+	Lexer.class
+	ParseException.class
+	Parser.class
+	SimpleC.class
+	SimpleCConstants.class
+	SimpleCTokenManager.class
+	SimpleCharStream.class
+	Token.class
+	TokenMgrError.class
+	TokenType.class
+	main$.class
+	main$delayedInit$body.class
+	main.class
+	test.c
+
+nothing added to commit but untracked files present
+[master 573f2c7] Commit
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+On branch master
+Untracked files:
+	.local.git.out
+	3
+	ExprEval$Token.class
+	ExprEval$TokenType.class
+	ExprEval.class
+	Lexer$Token.class
+	Lexer.class
+	ParseException.class
+	Parser.class
+	SimpleC.class
+	SimpleCConstants.class
+	SimpleCTokenManager.class
+	SimpleCharStream.class
+	Token.class
+	TokenMgrError.class
+	TokenType.class
+	main$.class
+	main$delayedInit$body.class
+	main.class
+	test.c
+
+nothing added to commit but untracked files present
+[master c6ef493] Commit
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+[master 14b12e5] Commit
+ 1 file changed, 14 deletions(-)
+On branch master
+Untracked files:
+	.local.git.out
+	3
+	ExprEval$Token.class
+	ExprEval$TokenType.class
+	ExprEval.class
+	Lexer$Token.class
+	Lexer.class
+	ParseException.class
+	Parser.class
+	SimpleC.class
+	SimpleCConstants.class
+	SimpleCTokenManager.class
+	SimpleCharStream.class
+	Token.class
+	TokenMgrError.class
+	TokenType.class
+	main$.class
+	main$delayedInit$body.class
+	main.class
+	test.c
+
+nothing added to commit but untracked files present
+[master 95c41f4] Commit
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+[master 8e63d88] Commit
+ 1 file changed, 4 insertions(+)
+[master 4ff7b6b] Commit
+ 1 file changed, 4 deletions(-)
+[master a21f60b] Commit
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+[master 490ad88] Commit
+ 1 file changed, 1 insertion(+)
+[master 9d815bf] Commit
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+[master f86273a] Commit
+ 8 files changed, 1 insertion(+), 3253 deletions(-)
+ delete mode 100644 ParseException.java
+ delete mode 100644 SimpleC.java
+ delete mode 100644 SimpleCConstants.java
+ delete mode 100644 SimpleCTokenManager.java
+ delete mode 100644 SimpleCharStream.java
+ delete mode 100644 Token.java
+ delete mode 100644 TokenMgrError.java
+[master 9fbb58a] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 7f600fd] Commit
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+[master 017b1a3] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 72ab4da] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 1dc37b0] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 0865245] Commit
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+[master f9fffbe] Commit
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+[master fdd25c8] Commit
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+[master 111bc2c] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+On branch master
+Untracked files:
+	.local.git.out
+	ExprEval.class
+	Lexer.class
+	Parser.class
+	Token.class
+	TokenType.class
+
+nothing added to commit but untracked files present
+[master dea89df] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master d484381] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 053867b] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 74136eb] Commit
+ 8 files changed, 4106 insertions(+), 2 deletions(-)
+ create mode 100644 ParseException.java
+ create mode 100644 SimpleC.java
+ create mode 100644 SimpleCConstants.java
+ create mode 100644 SimpleCTokenManager.java
+ create mode 100644 SimpleCharStream.java
+ create mode 100644 Token.java
+ create mode 100644 TokenMgrError.java
+[master 545468d] Commit
+ 2 files changed, 6 insertions(+), 8 deletions(-)
+[master 22e8f9d] Commit
+ 3 files changed, 9 insertions(+), 20 deletions(-)
+[master 31a9007] Commit
+ 2 files changed, 21 insertions(+), 26 deletions(-)
+[master a6f2f92] Commit
+ 1 file changed, 17 insertions(+), 23 deletions(-)
+[master 386f073] Commit
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+[master 985adac] Commit
+ 2 files changed, 21 insertions(+), 30 deletions(-)
+[master 5aeed8b] Commit
+ 2 files changed, 34 insertions(+), 54 deletions(-)
+[master fe9787d] Commit
+ 2 files changed, 59 insertions(+), 56 deletions(-)
+[master 0a1953b] Commit
+ 2 files changed, 18 insertions(+), 24 deletions(-)
+[master c8da5e5] Commit
+ 2 files changed, 33 insertions(+), 36 deletions(-)
+[master ab9be49] Commit
+ 2 files changed, 127 insertions(+), 114 deletions(-)
+[master a0f6fd8] Commit
+ 2 files changed, 3 insertions(+), 9 deletions(-)
+[master c926191] Commit
+ 4 files changed, 16 insertions(+), 188 deletions(-)
+[master 2e558a7] Commit
+ 1 file changed, 35 insertions(+), 35 deletions(-)
+On branch master
+Untracked files:
+	.local.git.out
+	ExprEval.class
+	Lexer.class
+	Parser.class
+	Token.class
+	TokenType.class
+
+nothing added to commit but untracked files present
+[master f62ad36] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master be045d0] Commit
+ 2 files changed, 28 insertions(+), 32 deletions(-)
+[master e5ccbd8] Commit
+ 2 files changed, 39 insertions(+), 52 deletions(-)
+[master 81a4064] Commit
+ 1 file changed, 39 insertions(+), 57 deletions(-)
+[master 772a857] Commit
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+[master 78a1e6e] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master f8f9640] Commit
+ 2 files changed, 10 insertions(+), 14 deletions(-)
+[master 60ed739] Commit
+ 2 files changed, 29 insertions(+), 19 deletions(-)
+[master d28ac30] Commit
+ 2 files changed, 145 insertions(+), 25 deletions(-)
+[master 2b00dbb] Commit
+ 1 file changed, 130 deletions(-)
+[master 98d3b0a] Commit
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+[master bc86f0c] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master ec7c2d7] Commit
+ 2 files changed, 24 insertions(+), 21 deletions(-)
+[master 47c2aeb] Commit
+ 1 file changed, 14 insertions(+), 6 deletions(-)
+[master dfa70a6] Commit
+ 7 files changed, 3873 deletions(-)
+ delete mode 100644 ParseException.java
+ delete mode 100644 SimpleC.java
+ delete mode 100644 SimpleCConstants.java
+ delete mode 100644 SimpleCTokenManager.java
+ delete mode 100644 SimpleCharStream.java
+ delete mode 100644 Token.java
+ delete mode 100644 TokenMgrError.java
+[master 3d9f954] Commit
+ 5 files changed, 2325 insertions(+), 333 deletions(-)
+ create mode 100644 Absyn.java
+ create mode 100644 Error.java
+ create mode 100644 ProcBody.java
+ create mode 100644 Scope.java
+ rewrite SimpleC.jj (91%)
+On branch master
+Untracked files:
+	.local.git.out
+
+nothing added to commit but untracked files present
+[master 10c523e] Commit
+ 10 files changed, 3475 insertions(+), 10 deletions(-)
+ create mode 100644 ParseException.java
+ create mode 100644 SimpleC.java
+ create mode 100644 SimpleCConstants.java
+ create mode 100644 SimpleCTokenManager.java
+ create mode 100644 SimpleCharStream.java
+ create mode 100644 Token.java
+ create mode 100644 TokenMgrError.java
+[master ff07d57] Commit
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ rename Error.java => ErrorClass.java (100%)
+On branch master
+Untracked files:
+	.local.git.out
+	ExprEval.class
+	Lexer.class
+	ParseException.class
+	Parser.class
+	SimpleC.class
+	SimpleCConstants.class
+	SimpleCTokenManager.class
+	SimpleCharStream.class
+	Token.class
+	TokenMgrError.class
+	TokenType.class
+
+nothing added to commit but untracked files present
+On branch master
+Untracked files:
+	.local.git.out
+	ExprEval.class
+	Lexer.class
+	ParseException.class
+	Parser.class
+	SimpleC.class
+	SimpleCConstants.class
+	SimpleCTokenManager.class
+	SimpleCharStream.class
+	Token.class
+	TokenMgrError.class
+	TokenType.class
+
+nothing added to commit but untracked files present
+[master d6089e5] Commit
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+[master 6912f11] Commit
+ 2 files changed, 62 insertions(+), 1540 deletions(-)
+ rewrite Absyn.java (99%)
+ copy Absyn.java => AbsynOld.java (99%)
+On branch master
+Untracked files:
+	.local.git.out
+	ExprEval.class
+	Lexer.class
+	ParseException.class
+	Parser.class
+	SimpleC.class
+	SimpleCConstants.class
+	SimpleCTokenManager.class
+	SimpleCharStream.class
+	Token.class
+	TokenMgrError.class
+	TokenType.class
+
+nothing added to commit but untracked files present
+[master 6c1627e] Commit
+ 1 file changed, 1 deletion(-)
+[master 9df04c4] Commit
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ rename Absyn.java => AST.java (100%)
+[master 6341918] Commit
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+[master 93b81f6] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 786bfc8] Commit
+ 1 file changed, 6 insertions(+)
+[master e816c53] Commit
+ 1 file changed, 17 insertions(+)
+[master 63c9123] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master fd6c35e] Commit
+ 1 file changed, 7 insertions(+)
+[master aff9846] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 7d4c3f1] Commit
+ 1 file changed, 3 insertions(+), 6 deletions(-)
+[master 21c727c] Commit
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+[master b05a20f] Commit
+ 3 files changed, 7 insertions(+), 4 deletions(-)
+[master a607c6f] Commit
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+[master 8a203a4] Commit
+ 3 files changed, 4 insertions(+), 1 deletion(-)
+[master 36b81dd] Commit
+ 18 files changed, 24 insertions(+), 99 deletions(-)
+ rewrite bin/simplec/AST$Print.class (94%)
+ rewrite bin/simplec/AST$Value$Visitor.class (85%)
+ rewrite bin/simplec/AST$Value.class (100%)
+ rewrite bin/simplec/AST$Visitor.class (91%)
+ rewrite bin/simplec/AST.class (95%)
+ rewrite bin/simplec/parse/SimpleC.class (90%)
+ delete mode 100644 testreadme.txt
+[master d5b609d] Commit
+ 1 file changed, 1 insertion(+)
+[master 2d522d8] Commit
+ 5 files changed, 2 insertions(+), 2 deletions(-)
+ rewrite bin/simplec/parse/SimpleC.class (76%)
+[master 3c48aab] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 431c4da] Commit
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+[master bda5415] Commit
+ 1 file changed, 1 insertion(+)
+[master a4532c4] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 94aa506] Commit
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+On branch master
+Your branch is ahead of 'origin/master' by 7 commits.
+  (use "git push" to publish your local commits)
+Untracked files:
+	.gitignore
+	.local.git.out
+
+nothing added to commit but untracked files present
+[master 414e845] Commit
+ 2 files changed, 69 insertions(+), 20 deletions(-)
+[master 212ccf3] Commit
+ 2 files changed, 40 insertions(+), 25 deletions(-)
+[master 3ab2057] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 75250fa] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 54c5604] Commit
+ 1 file changed, 40 insertions(+)
+[master b5f5b01] Commit
+ 4 files changed, 0 insertions(+), 0 deletions(-)
+ rewrite bin/simplec/AST$Print.class (90%)
+ rewrite bin/simplec/parse/SimpleC.class (69%)
+On branch master
+Your branch is ahead of 'origin/master' by 13 commits.
+  (use "git push" to publish your local commits)
+Untracked files:
+	.gitignore
+	.local.git.out
+
+nothing added to commit but untracked files present
+[master 5cc09a4] Commit
+ 1 file changed, 7 insertions(+)
+[master fd5ce60] Commit
+ 7 files changed, 8 insertions(+), 3 deletions(-)
+[master d898cff] Commit
+ 2 files changed, 4 insertions(+), 1 deletion(-)
+ rewrite bin/simplec/AST$Print.class (80%)
+[master dee5501] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 6fd5dba] Commit
+ 4 files changed, 1 insertion(+)
+[master de8e284] Commit
+ 4 files changed, 2 insertions(+), 2 deletions(-)
+ rewrite bin/simplec/AST$Print.class (81%)
+On branch master
+Your branch is ahead of 'origin/master' by 19 commits.
+  (use "git push" to publish your local commits)
+Untracked files:
+	.gitignore
+	.local.git.out
+	tests/output/t10.out
+	tests/output/t11.out
+	tests/output/t12.out
+	tests/output/t13.out
+	tests/output/t14.out
+	tests/output/t15.out
+	tests/output/t16.out
+	tests/output/t4.out
+	tests/output/t5.out
+	tests/output/t6.out
+	tests/output/t7.out
+	tests/output/t8.out
+	tests/output/t9.out
+
+nothing added to commit but untracked files present
+[master 1fe70c4] Commit
+ 7 files changed, 3720 deletions(-)
+ delete mode 100644 src/parse/ParseException.java
+ delete mode 100644 src/parse/SimpleC.java
+ delete mode 100644 src/parse/SimpleCConstants.java
+ delete mode 100644 src/parse/SimpleCTokenManager.java
+ delete mode 100644 src/parse/SimpleCharStream.java
+ delete mode 100644 src/parse/Token.java
+ delete mode 100644 src/parse/TokenMgrError.java
+[master e264fdb] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 5a7c247] Commit
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+ rewrite bin/simplec/parse/SimpleC.class (76%)
+[master 4ed4bd0] Commit
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+ rewrite bin/simplec/parse/SimpleC.class (67%)
+[master 20b3a85] Commit
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+ rewrite bin/simplec/parse/SimpleC.class (85%)
+[master 0a06748] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 8764402] Commit
+ 4 files changed, 13 insertions(+), 4 deletions(-)
+ rewrite bin/simplec/parse/SimpleC.class (81%)
+[master 80021cd] Commit
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+[master 4c3d4e0] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master f2eccf9] Commit
+ 1 file changed, 1 insertion(+)
+[master cc33a60] Commit
+ 1 file changed, 2 insertions(+)
+[master c0e47a9] Commit
+ 6 files changed, 1 insertion(+)
+ rewrite bin/simplec/AST$Print.class (91%)
+ rewrite bin/simplec/parse/SimpleC.class (77%)
+[master 439c420] Commit
+ 4 files changed, 1 insertion(+), 1 deletion(-)
+ rewrite bin/simplec/AST$Print.class (79%)
+[master 94612d5] Commit
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ rewrite bin/simplec/AST$Print.class (79%)
+On branch master
+Your branch is ahead of 'origin/master' by 33 commits.
+  (use "git push" to publish your local commits)
+Untracked files:
+	.gitignore
+	.local.git.out
+	src/parse/
+	tests/output/t10.out
+	tests/output/t11.out
+	tests/output/t12.out
+	tests/output/t13.out
+	tests/output/t14.out
+	tests/output/t15.out
+	tests/output/t16.out
+	tests/output/t21.out
+	tests/output/t22.out
+	tests/output/t23.out
+	tests/output/t24.out
+	tests/output/t31.out
+	tests/output/t32.out
+	tests/output/t33.out
+	tests/output/t4.out
+	tests/output/t5.out
+	tests/output/t6.out
+	tests/output/t7.out
+	tests/output/t8.out
+	tests/output/t9.out
+
+nothing added to commit but untracked files present
+[master a04e214] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 7ef14da] Commit
+ 4 files changed, 4 insertions(+), 3 deletions(-)
+ rewrite bin/simplec/AST$Print.class (79%)
+[master dc91d28] Commit
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+On branch master
+Your branch is ahead of 'origin/master' by 36 commits.
+  (use "git push" to publish your local commits)
+Untracked files:
+	.gitignore
+	.local.git.out
+	src/parse/
+	tests/output/t10.out
+	tests/output/t11.out
+	tests/output/t12.out
+	tests/output/t13.out
+	tests/output/t14.out
+	tests/output/t15.out
+	tests/output/t16.out
+	tests/output/t21.out
+	tests/output/t22.out
+	tests/output/t23.out
+	tests/output/t24.out
+	tests/output/t31.out
+	tests/output/t32.out
+	tests/output/t33.out
+	tests/output/t4.out
+	tests/output/t5.out
+	tests/output/t50.out
+	tests/output/t6.out
+	tests/output/t61.out
+	tests/output/t62.out
+	tests/output/t63.out
+	tests/output/t64.out
+	tests/output/t7.out
+	tests/output/t8.out
+	tests/output/t9.out
+
+nothing added to commit but untracked files present
+[master 3ae8d52] Commit
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+[master f5538bd] Commit
+ 2 files changed, 63 insertions(+), 611 deletions(-)
+ rewrite bin/simplec/parse/SimpleC.class (86%)
+[master caa4213] Commit
+ 7 files changed, 3718 deletions(-)
+ delete mode 100644 src/parse/ParseException.java
+ delete mode 100644 src/parse/SimpleC.java
+ delete mode 100644 src/parse/SimpleCConstants.java
+ delete mode 100644 src/parse/SimpleCTokenManager.java
+ delete mode 100644 src/parse/SimpleCharStream.java
+ delete mode 100644 src/parse/Token.java
+ delete mode 100644 src/parse/TokenMgrError.java
+[master 605b3e2] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master ee658cb] Commit
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Untracked files:
+	.local.git.out
+	output.txt
+
+nothing added to commit but untracked files present
+[master 264fc06] Commit
+ 4 files changed, 44 insertions(+)
+ rewrite bin/simplec/parse/SimpleC.class (73%)
+ create mode 100644 tests/t70.c
+ create mode 100644 tests/t71.c
+[master 19bede4] Commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master bbca40f] Commit
+ 4 files changed, 3 insertions(+), 3 deletions(-)
+ rewrite bin/simplec/parse/SimpleC.class (66%)
+[master 271e395] Commit
+ 5 files changed, 27 insertions(+), 48 deletions(-)
+ rewrite bin/simplec/parse/SimpleC.class (66%)
+ rewrite tests/t71.c (100%)
+[master fe00b7e] Commit
+ 1 file changed, 2 insertions(+)
+On branch master
+Untracked files:
+	.local.git.out
+
+nothing added to commit but untracked files present
+[master 714a883] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 34 insertions(+), 2 deletions(-)
+[master 5d1a23f] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 15 insertions(+), 7 deletions(-)
+[master 0e19303] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+[master ba5f154] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+[master 3f6143e] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 2 files changed, 16 insertions(+), 5 deletions(-)
+[master 9f04d14] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 059b0fd] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master b19a8b4] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+[master f2200b8] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master d3a7c4f] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 2 files changed, 36 insertions(+), 3 deletions(-)
+[master 5429bfe] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 2 files changed, 14 insertions(+), 2 deletions(-)
+[master 6ff71ae] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+[master 7bdc8cc] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+[master e7f7433] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+[master 21ef3cf] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+[master edf0a04] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 4008420] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 77ea122] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+[master e73b38e] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 9 insertions(+)
+[master f897b95] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 592d2aa] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+[master b9e3872] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 10 insertions(+), 10 deletions(-)
+[master 6a6752c] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+)
+[master 7c0e3f7] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master cacee00] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 15 insertions(+)
+[master a033462] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master f9d3e70] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+[master 4574470] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master bccc94b] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 2 files changed, 21 insertions(+), 2 deletions(-)
+[master 38b9579] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+[master 68fe77d] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 161b467] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 11 insertions(+)
+[master 22c9b31] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+[master 6908abc] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+[master 12408ee] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[master 5b6be3c] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 14 insertions(+)
+[master c4c512d] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+[master ac573b0] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 14 insertions(+)
+[master c8b4f8c] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+[master 663d497] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 9 insertions(+)
+[master bfc9cdc] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 2 insertions(+)
+On branch master
+Untracked files:
+	.local.git.out
+	questions.txt
+
+nothing added to commit but untracked files present
+[master cbd6607] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+)
+[master ce20c85] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+[master bd422b5] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+On branch master
+Untracked files:
+	.local.git.out
+	questions.txt
+
+nothing added to commit but untracked files present
+[master 430668c] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 2 insertions(+)
+[master 570d8bd] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 2 deletions(-)
+[master a632545] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+[master c3e6ab9] Commit
+ Committer: Siyu Jiang <jiang385@data.cs.purdue.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+On branch master
+Untracked files:
+	.local.git.out
+	ast.pdf
+	questions.txt
+
+nothing added to commit but untracked files present
+On branch master
+Untracked files:
+	.local.git.out
+	ast.pdf
+	questions.txt
+
+nothing added to commit but untracked files present

@@ -1,0 +1,1 @@
+long main(){x = 1 || 'x' && "hello" == 1.2 < foo() + z * *a[1337];}

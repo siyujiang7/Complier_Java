@@ -1,0 +1,1 @@
+long main(){return 1337;}

@@ -1,0 +1,20 @@
+----------
+ Errors/Warnings: 17 
+----------
+1 : Code can't precede declarations
+1 : Break not in loop
+1 : Continue not in loop
+1 : Returning value in void function
+0 : Incompatible return type
+1 : Incompatible type assigning
+1 : Assigning to an undeclared variable
+1 : Non-Integer array subscript
+1 : Assigning pointer to integer
+1 : Undeclared Variable in expression
+0 : Divide by zero
+1 : Invalid unary operation
+1 : Invalid operands to binary operator
+1 : Variable/Function Redeclaration
+3 : Incompatible function argument types
+1 : Too few function arguments
+1 : Too many function arguments

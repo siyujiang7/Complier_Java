@@ -1,0 +1,13 @@
+struct ip6_hdr {
+  union {
+    struct {
+      long ip6_un1_flow;
+      long ip6_un1_plen;
+      long ip6_un1_nxt;
+      long ip6_un1_hlim;
+    } ip6_un1;
+    long ip6_un2_vfc;
+  } ip6_ctlun;
+  struct in6_addr ip6_src;
+  struct in6_addr ip6_dst;
+};

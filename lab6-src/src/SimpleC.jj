@@ -1,0 +1,669 @@
+PARSER_BEGIN(SimpleC)
+  package simplec.parse;
+
+  import static simplec.AST.*;
+  import simplec.Scope;
+
+  import java.util.*;
+
+  public class SimpleC { }
+
+
+PARSER_END(SimpleC)
+
+  SKIP :
+{
+    " "
+  | "\t"
+  | "\n"
+  | "\r"
+}
+
+SKIP : //comments
+{
+    < "//" (~["\r", "\n"])* >
+  | < "/*" > : ML_COMMENT_STATE
+}
+
+<ML_COMMENT_STATE> SKIP :
+{
+    < "*/" > : DEFAULT
+  | < ~[] >   
+}
+
+TOKEN :
+{
+    /* Directives */
+    <PRAGMA           : "#pragma" (~["\r", "\n"])* >
+
+    /* Types  */
+  | <VOID             : "void">
+  | <LONG             : "long">
+  | <LONG_STAR        : "long*">
+  | <CHAR             : "char">
+  | <CHAR_STAR        : "char*">
+  | <CHAR_STAR_STAR   : "char**">
+  | <DOUBLE           : "double">
+  | <DOUBLE_STAR      : "double*">
+  
+    /* Control flow */
+  | <IF               : "if">
+  | <ELSE             : "else">
+  | <DO               : "do">
+  | <WHILE            : "while">
+  | <FOR              : "for">
+  | <CONTINUE         : "continue">
+  | <BREAK            : "break">
+  | <RETURN           : "return">
+
+    /* Operators */
+  | <ADD              : "+">
+  | <MIN              : "-">
+  | <MUL              : "*">
+  | <DIV              : "/">
+  | <MOD              : "%">
+  | <EQUAL            : "=">
+  | <AMP              : "&">
+  | <AMPAMP           : "&&">
+  | <BARBAR           : "||">
+  | <EQUALEQUAL       : "==">
+  | <NEQUAL           : "!=">
+  | <GEQUAL           : ">=">
+  | <LEQUAL           : "<=">
+  | <COMMA            : ",">
+  | <SEMICOLON        : ";">
+  | <LPAREN           : "(">
+  | <RPAREN           : ")">
+  | <LBRACK           : "[">
+  | <RBRACK           : "]">
+  | <LCURLY           : "{">
+  | <RCURLY           : "}">
+  | <LANGLE           : "<">
+  | <RANGLE           : ">">
+
+  /* Character string related tokens */
+  //| <TYPE             : <ID> "_t">
+  | <ID               : <LET> (<LET> | <DEC> | "_")*>
+  | <C_CONST          : "'" ( 
+      <PRINT>                     /* Regular characters*/
+      | "\\" (<OCT>){1,3}         /* Octal character constants */
+      | "\\x" (<HEX>){2}          /* Hex character constants */
+      | "\\" <PRINT>              /* Escaped characters */
+      | "\""                      /* Allow double quotes */
+      | "\\" "'"                  /* Allow escaped single quotes */
+    ) 
+  "'">
+  | <STR_CONST        : "\"" (
+      <PRINT>             /* Regular characters */
+      | ("\\" <PRINT>)    /* Allow escaped regular characters */
+      | ("\\" "\"")       /* Allow escaped double quotes */
+      | "'"               /* Allow single quotes */
+    )* 
+  "\"">
+
+  /* Basic regular definitions for characters */
+  | <INT_CONST        : (<DEC>)+        /* Decimal or Octal integer constants */
+                      | "0x" (<HEX>)+>  /* Hex constants */
+  | <DOUBLE_CONST     : (<DEC>)* (".")? (<DEC>)+ (("e"|"E") ("-"|"+")? (<DEC>)+)?>
+  | <DEC              : ["0"-"9"]>
+  | <PRINT            : <LET> | <DEC> | <OTHER>>
+  | <OCT              : ["0"-"7"]>
+  | <HEX              : <DEC> | ["A"-"F"] | ["a"-"f"]>
+  | <LET              : ["A"-"Z"] | ["a"-"z"]>
+  | <OTHER            : " " | "!" | "#" | "$" | "%" | "&" | "(" | ")" | "*" | "+" 
+                      | "," | "-" | "." | "/" | ":" | ";" | "<" | "=" | ">" 
+                      | "?" | "@" | "[" | "]" | "^" | "_" | "`" | "{" | "|" 
+                      | "}" | "~" >
+}
+
+/* Root production. */
+Value.Unit goal(): 
+{
+  Value.Unit program;
+  Scope.topScope = new Scope(null);
+  Scope.rootScope = Scope.topScope;
+  Scope.rootScope.insertStdLibFuncs();
+} 
+{ 
+  program = program() <EOF>
+  { 
+    Scope.rootScope.type = program;
+    return program;
+  }
+}
+
+Value.Unit program(): 
+{
+  List<Value> fovList = new LinkedList<Value>();
+  Value fov;
+} 
+{ 
+  (fov = function_or_var() { fovList.add(fov); })*
+  {
+    Value.Unit unit = new Value.Unit(ID("Program"), fovList);
+    return unit;
+  }
+}
+
+Value function_or_var():
+{
+  Value.Type varType;
+  Token id;
+  Value fov;
+}
+{
+    varType = var_type() 
+    id = <ID> fov = function_or_var_tail(id, varType)
+    {
+      return fov;
+    }
+}
+
+Value function_or_var_tail(Token id, Value.Type varType):
+{
+  Value fov;
+}
+{
+    fov = function(id, varType)   { return fov; }
+  | fov = global_var(id, varType) { return fov; }
+}
+
+Value.Function function(Token id, Value.Type varType):
+{
+  Statement.CompoundStatement cStmt; 
+  List<Value.Argument> argList;
+}
+{
+  <LPAREN> argList = arguments() <RPAREN> cStmt = compound_statement(argList)
+  {
+    Value.Function var = new Value.Function(id, varType, argList, cStmt);
+    Scope.topScope.put(id.image, var);
+    return var;
+  }
+}
+
+List<Value.Argument> arguments():
+{
+  List<Value.Argument> argList = new LinkedList<Value.Argument>();
+}
+{
+  ( argList = arg_list())?
+  { return argList; }
+}
+
+List<Value.Argument> arg_list():
+{
+  Value.Argument arg;
+  List<Value.Argument> argList = new LinkedList<Value.Argument>();
+}
+{
+  arg = arg() { argList.add(arg); }
+  (<COMMA> arg = arg() { argList.add(arg); } )*
+  { return argList; }
+}
+
+Value.Argument arg():
+{
+  Token id;
+  Value.Type varType;
+}
+{
+  varType = var_type() id = <ID>
+  {
+    return new Value.Argument(id, varType);
+  }
+}
+
+Value.VariableList global_var(Token lastVar, Value.Type varType):
+{
+  List<Value.Variable> vars = new LinkedList<Value.Variable>();
+  Value.Variable var = new Value.Variable(lastVar, varType);
+  Scope.topScope.put(lastVar.image, var);
+  vars.add(var);
+  Token globalVarName;
+}
+{
+  ( globalVarName = global_var_list() { 
+      var = new Value.Variable(globalVarName, varType);
+      Scope.topScope.put(globalVarName.image, var);
+      vars.add(var);
+    })* <SEMICOLON>
+  {
+    return new Value.VariableList(vars, true);
+  }
+}
+
+Token global_var_list(): { Token id; }
+{
+  <COMMA> id = <ID> { return id; }
+}
+
+Value.Type var_type():
+{
+  Value.Type type;
+}
+{
+    type = var_type_tail(){return type;}
+}
+
+Value.Type var_type_tail():
+{
+  Token type;
+}
+{
+    type = <CHAR>           { return new Value.Type.Type(type); }
+  | type = <CHAR_STAR>      { return new Value.Type.Type(type); }
+  | type = <CHAR_STAR_STAR> { return new Value.Type.Type(type); }
+  | type = <DOUBLE>         { return new Value.Type.Type(type); }
+  | type = <DOUBLE_STAR>    { return new Value.Type.Type(type); }
+  | type = <LONG>           { return new Value.Type.Type(type); }
+  | type = <LONG_STAR>      { return new Value.Type.Type(type); }
+  | type = <VOID>           { return new Value.Type.Type(type); }
+}
+
+Statement.AssignStatement assignment(Value.VarAccess var):
+{
+  Token id;
+  Expression expr;
+  Expression index;
+}
+{
+    id = <EQUAL> expr = expression()
+      { return new Statement.AssignStatement(id, var, expr); }
+  | <LBRACK> index = expression() <RBRACK> id = <EQUAL> expr = expression()
+      { return new Statement.AssignStatement(id, var, index, expr); }
+}
+
+Expression.Call call(Token idName):
+{
+  List<Expression> args;
+}
+{
+  <LPAREN> args = call_arguments() <RPAREN>
+  { return new Expression.Call(idName, args); }
+}
+
+List<Expression> call_arg_list():
+{
+  List<Expression> args = new LinkedList<Expression>();
+  Expression expr;
+}
+{
+  expr = expression() { args.add(expr); } (<COMMA> expr = expression() { args.add(expr); })*
+  { return args; }
+}
+
+List<Expression> call_arguments():
+{
+  List<Expression> args = new LinkedList<Expression>();
+}
+{
+  (args = call_arg_list())?
+  { return args; }
+}
+
+Token eql_op(): { Token op; }
+{
+    op = <EQUALEQUAL> { return op; }
+  | op = <NEQUAL> { return op; }
+}
+
+Token cmp_op(): { Token op; }
+{
+    op = <LANGLE> { return op; }
+  | op = <RANGLE> { return op; }
+  | op = <GEQUAL> { return op; }
+  | op = <LEQUAL> { return op; }
+}
+
+Token add_op(): { Token op; }
+{
+    op = <ADD> { return op; }
+  | op = <MIN> { return op; }
+}
+
+Token mul_op(): { Token op; }
+{
+    op = <MUL> { return op; }
+  | op = <DIV> { return op; }
+  | op = <MOD> { return op; }
+}
+
+Token unary_op(): { Token op; }
+{
+    op = <MUL> { return op; }
+  | op = <ADD> { return op; }
+  | op = <MIN> { return op; }
+  | op = <AMP> { return op; }
+}
+
+Expression expression():
+{
+  Expression current;
+}
+{
+  current = logical_or_expr()
+  { return current; }
+}
+
+Expression logical_or_expr():
+{
+  Expression lhs, rhs, current;
+  Token op;
+}
+{
+  lhs = logical_and_expr() { current = lhs; }
+  (
+    op = <BARBAR> rhs = logical_and_expr()
+    { current = new Expression.Binary.Or(op, current, rhs); }
+  )*
+  { return current; }
+}
+
+Expression logical_and_expr():
+{
+  Expression lhs, rhs, current;
+  Token op;
+}
+{
+  lhs = equality_expr() { current = lhs; }
+  (
+    op = <AMPAMP> rhs = equality_expr()
+    { current = new Expression.Binary.And(op, current, rhs); }
+  )*
+  { return current; }
+}
+
+Expression equality_expr():
+{
+  Expression lhs, rhs, current;
+  Token op;
+}
+{
+  lhs = relational_expr() { current = lhs; }
+  (
+    op = eql_op() rhs = relational_expr()
+    { current = new Expression.Binary.Eq(op, current, rhs); }
+  )*
+  { return current; }
+}
+
+Expression relational_expr():
+{
+  Expression lhs, rhs, current;
+  Token op;
+}
+{
+  lhs = additive_expr() { current = lhs; }
+  (
+    op = cmp_op() rhs = additive_expr()
+    { current = new Expression.Binary.Rel(op, current, rhs); }
+  )*
+  { return current; }
+}
+
+Expression additive_expr():
+{
+  Expression lhs, rhs, current;
+  Token op;
+}
+{
+  lhs = multiplicative_expr() { current = lhs; }
+  (
+    op = add_op() rhs = multiplicative_expr()
+    { current = new Expression.Binary.Add(op, current, rhs); }
+  )*
+  { return current; }
+}
+
+Expression multiplicative_expr():
+{
+  Expression lhs, rhs, current;
+  Token op;
+}
+{
+  lhs = unary_expr() { current = lhs; }
+  (
+    op = mul_op() rhs = unary_expr()
+    { current = new Expression.Binary.Mul(op, current, rhs); }
+  )*
+  { return current; }
+}
+
+Expression unary_expr():
+{
+  Expression lhs;
+  Token op;
+  Expression unary = null;
+}
+{
+    lhs = primary_expr()    { return lhs; }
+  | op = unary_op() lhs = unary_expr() 
+    { 
+      switch(op.image) {
+        case "&": unary = new Expression.Unary.Ref(op, lhs); break;
+        case "*": unary = new Expression.Unary.Deref(op, lhs); break;
+        case "+": unary = new Expression.Unary.Positive(op, lhs); break;
+        case "-": unary = new Expression.Unary.Negative(op, lhs); break;
+      }
+      return unary; 
+    }
+}
+
+Expression primary_expr():
+{
+  Token id;
+  Expression expr = null;
+}
+{
+    id = <STR_CONST> { return new Expression.Text(id); }
+  | id = <C_CONST> { return new Expression.Char(id); }
+  | id = <ID> expr = primary_expr_tail(id) { return expr; }
+  | id = <INT_CONST>
+    { return new Expression.Int(id); }
+  | id = <DOUBLE_CONST> 
+    { return new Expression.Double(id); }
+  | <LPAREN> expr = expression() <RPAREN> { return expr; }
+}
+
+Expression primary_expr_tail(Token idName):
+{
+  Expression expr;
+  Token field;
+}
+{
+    <LBRACK> expr = expression() <RBRACK> { return new Expression.Array(idName, expr); }
+  | expr = call(idName) { return expr; }
+  | {return new Expression.ID(idName); }
+}
+
+Statement.CompoundStatement compound_statement(List<Value.Argument> argList):
+{
+  List<Statement> stmtList;
+  Token id;
+  Scope saved;
+  Scope newScope = null;
+}
+{
+  id = <LCURLY> {
+    saved = Scope.topScope;
+    newScope = new Scope(Scope.topScope);
+    Scope.topScope = newScope;
+  }
+  stmtList = statement_list_opt()
+  <RCURLY> {
+		Scope.topScope = saved;
+  }
+  {
+    if (argList != null) {
+      for (Value.Argument arg : argList) {
+        newScope.put(arg.id.image, arg);
+      }
+    }
+    return new Statement.CompoundStatement(id, stmtList, newScope);
+  }
+}
+
+List<Statement> statement_list_opt():
+{
+  List<Statement> stmtList = new LinkedList<Statement>();
+}
+{
+  (stmtList = statement_list())?
+  { return stmtList; }
+}
+
+List<Statement> statement_list():
+{
+  List<Statement> stmtList = new LinkedList<Statement>();
+  Statement stmt;
+}
+{
+  (stmt = statement() { stmtList.add(stmt); } )+
+  { return stmtList; }
+}
+
+Statement.VariableDecls local_var():
+{
+  List<Value.Variable> vars;
+  Value.Type type;
+}
+{
+  type = var_type() vars = local_var_list(type) <SEMICOLON>
+  { return new Statement.VariableDecls(ID("Variable Decls"), vars); }
+}
+
+List<Value.Variable> local_var_list(Value.Type varType):
+{
+  List<Value.Variable> vars = new LinkedList<Value.Variable>();
+  Value.Variable var;
+  Token id;
+}
+{
+  id = <ID> {
+      var = new Value.Variable(id, varType);
+      Scope.topScope.put(id.image, var);
+      vars.add(var);
+    }
+  (<COMMA> id = <ID> {
+      var = new Value.Variable(id, varType);
+      Scope.topScope.put(id.image, var);
+      vars.add(var);
+    })*
+  { return vars; }
+}
+
+Statement statement():
+{
+  Statement stmt;
+  Token varName;
+  Statement.AssignStatement init;
+  Expression cond;
+  Statement.AssignStatement update;
+  Statement body;
+  Statement.ElseStatement elseStmt = null;
+  Value.VarAccess varAccess;
+  Token id;
+}
+{   
+    stmt = compound_statement(null)
+    { return stmt; }
+  | varName = <ID> stmt = statement_tail(varName)
+    { return stmt; }
+  | stmt = local_var()
+    { return stmt; }
+  | id = <IF> <LPAREN> cond = expression() <RPAREN> body = statement() elseStmt = else_optional()
+    {
+      Statement.IfStatement ifStmt = new Statement.IfStatement(id, cond, body, elseStmt);
+      if (body instanceof Statement.CompoundStatement) {
+        Statement.CompoundStatement bodyStmt = (Statement.CompoundStatement)body;
+        bodyStmt.childScope.type = ifStmt;
+      }
+      return ifStmt;
+    }
+  | id = <WHILE> <LPAREN> cond = expression() <RPAREN> body = statement()
+    {
+      Statement.WhileStatement whileStmt = new Statement.WhileStatement(id, cond, body);
+      if (body instanceof Statement.CompoundStatement) {
+        Statement.CompoundStatement bodyStmt = (Statement.CompoundStatement)body;
+        bodyStmt.childScope.type = whileStmt;
+      }
+      return whileStmt;
+    }
+  | id = <DO> body = statement() <WHILE> <LPAREN> cond = expression() <RPAREN> <SEMICOLON>
+    {
+      Statement.DoWhileStatement doStmt = new Statement.DoWhileStatement(id, cond, body);
+      if (body instanceof Statement.CompoundStatement) {
+        Statement.CompoundStatement bodyStmt = (Statement.CompoundStatement)body;
+        bodyStmt.childScope.type = doStmt;
+      }
+      return doStmt;
+    }
+  | id = <FOR> <LPAREN> 
+      varName = <ID> 
+      init = assignment(new Value.VarAccess(varName)) <SEMICOLON> 
+      cond = expression() <SEMICOLON> 
+      varName = <ID>
+      update = assignment(new Value.VarAccess(varName))
+      <RPAREN>
+      body = statement()
+    {
+      Statement.ForStatement forStmt = new Statement.ForStatement(id, init, cond, update, body);
+      if (body instanceof Statement.CompoundStatement) {
+        Statement.CompoundStatement bodyStmt = (Statement.CompoundStatement)body;
+        bodyStmt.childScope.type = forStmt;
+      }
+      return forStmt;
+    }
+  | stmt = jump_statement()
+    { return stmt; }
+}
+
+Statement statement_tail(Token varName):
+{
+  Statement stmt;
+  Expression.Call expr;
+  Token callTok;
+}
+{
+    stmt = assignment(new Value.VarAccess(varName)) <SEMICOLON>
+    { return stmt; } 
+  | expr = call(varName) callTok = <SEMICOLON>
+    { return new Statement.CallStatement(callTok, expr); }
+}
+
+Statement.ElseStatement else_optional():
+{
+  Statement stmt = null;
+  Statement.ElseStatement elseStmt = null;
+  Token elseTok;
+}
+{
+  (LOOKAHEAD(1) elseTok=<ELSE> stmt = statement() 
+    {elseStmt = new Statement.ElseStatement(elseTok, stmt);})? 
+    {return elseStmt;}
+}
+
+Statement jump_statement():
+{
+  Token jump;
+  Expression expr;
+}
+{
+    jump = <CONTINUE> <SEMICOLON>
+    { return new Statement.ContinueStatement(jump); }
+  | jump = <BREAK> <SEMICOLON>
+    { return new Statement.BreakStatement(jump); }
+  | jump = <RETURN> expr = return_val_opt() <SEMICOLON>
+    { return new Statement.ReturnStatement(jump, expr); }
+}
+
+Expression return_val_opt():
+{
+  Expression expr = null;
+}
+{
+  (expr = expression())?
+  { return expr; }
+}
+

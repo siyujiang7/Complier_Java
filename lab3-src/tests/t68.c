@@ -1,0 +1,1 @@
+long main(){for (x='x';'x';x='x'){for (x='x';'x';x='x'){for (x='x';'x';x='x'){for (x='x';'x';x='x'){for (x='x';'x';x='x'){for (x='x';'x';x='x'){for (x='x';'x';x='x'){for (x='x';'x';x='x'){for (x='x';'x';x='x'){for (x='x';'x';x='x'){}}}}}}}}}}}

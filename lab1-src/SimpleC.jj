@@ -1,0 +1,160 @@
+
+PARSER_BEGIN(SimpleC)
+
+/** Simple brace matcher. */
+public class SimpleC {
+
+  /** Main entry point. */
+  public static void main(String args[]) throws ParseException {
+    SimpleC parser = new SimpleC(System.in);
+    //parser.expr();
+    parser.Input();
+  }
+
+}
+
+PARSER_END(SimpleC)
+
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+|< "//" (~["\r","\n"])* >
+| < "/*" > : ML_COMMENT
+}
+<ML_COMMENT> SKIP :
+{
+  < "*/" > : DEFAULT
+| < ~[] >   
+}
+
+TOKEN :
+{
+ <LPARENT: "(">
+| <RPARENT: ")">
+| <VOID: "void">
+| <CHARSS: "char**">
+| <CHARS: "char*">
+| <CHAR: "char">
+| <LONG: "long">
+| <LONGS: "long*">
+| <INT: "int">
+| <ELSE: "else">
+| <IF: "if">
+| <WHILE: "while">
+| <DO: "do">
+| <FOR: "for">
+| <CONTINUE: "continue">
+| <BREAK: "break">
+| <RETURN: "return">
+| <DOUBLES: "double*">
+| <DOUBLE: "double">
+| <LCURLY: "{">
+| <RCURLY: "}">
+| <SEMICOLON: ";">
+| <LBRAC: "[">
+| <RBRAC: "]">
+
+| <COMMA: ",">
+| <EQUALEQUAL: "==">
+| <EQUAL: "=">
+| <AND: "&">
+| <OR: "||">
+| <ANDAND: "&&">
+| <NOTEQUAL: "!=">
+| <LESS: "<">
+| <GREATER: ">">
+| <LESSEQUAL: "<=">
+| <GREATEQUAL: ">=">
+| <PLUS: "+">
+| <MINUS: "-">
+| <MULTIPLE: "*">
+| <DIVIDE: "/">
+| <MOD: "%">
+
+|<ID: ((<LETTER>)(<LETTER> | <DIGIT>| "_")*)>
+| <CHAR_CONST: "'"((<PRINTING_CHAR>)|"0"|"\n"|"\r"|"0"<OCTAL> <OCTAL>)"'">
+| <STRING_CONST: "\""(<PRINTING_CHAR> | "0" <OCTAL> <OCTAL>| "\\" | ("0") <OCTAL> <OCTAL>| "\\" "x" <HEX_DIGIT><HEX_DIGIT>| "\\" ("n"|"t"|"r"|"0"))*"\"">
+| <DOUBLE_CONST: (<DIGIT>)*(".")?<DIGIT>(<DIGIT>)*(("e" | "E")("-" | "+")?<DIGIT>(<DIGIT>)*)?>
+| <INTEGER_CONST: <DIGIT>(<DIGIT>)*|<DIGIT>(<DIGIT>)*"_"<HEX_DIGIT>(<HEX_DIGIT>)*>
+| <PRINTING_CHAR: (<LETTER> | <DIGIT> | <OTHER_CHAR>)>
+| <DIGIT: (["0"-"9"])>
+| <OCTAL: ["0"-"7"]>
+| <HEX_DIGIT: <DIGIT>|["A"-"F"]|["a"-"f"]>
+| <LETTER: (["a"-"z","A"-"Z"])>
+| <OTHER_CHAR: " " | "!" | "#" | "$" | "%" | "&" | "(" | ")" | "*" | "+" | "," | "-" | "." | "/" | ":" | ";"| "<" | "=" | ">" | "?" | "@" | "[" | "]" | "^"| "_" | "`" | "{" | "|" | "}" | "~">
+}
+
+
+/**Root production. */
+void Input() :
+{ int count; }
+{
+  count=anytoken() <EOF>
+  { System.out.println("The number of tokens is " + count); }
+}
+
+int anytoken():
+{
+  Token t;
+  int count=0;
+}
+{
+  (
+   t = <LPARENT> { System.out.println("(LPARENT, \""+t.image+"\")" ); count++; } |
+   t = <RPARENT> { System.out.println("(RPARENT, \""+t.image+"\")" ); count++; } |
+   t = <VOID> {System.out.println( "(VOID, \""+t.image+"\")" ); count++;} |
+   t = <ID> {System.out.println( "(ID, \""+t.image+"\")" ); count++;} |
+   t = <LCURLY> {System.out.println( "(LCURLY, \""+t.image+"\")" ); count++;} |
+   t = <RCURLY> {System.out.println( "(RCURLY, \""+t.image+"\")" ); count++;} |
+   t = <SEMICOLON> {System.out.println( "(SEMICOLON, \""+t.image+"\")" ); count++;} |
+   t = <STRING_CONST> {System.out.println( "(STRING_CONST," +t.image+")" ); count++;} |
+   t = <CHARSS> {System.out.println( "(CHARSS, \""+t.image+"\")" ); count++;} |
+   t = <CHARS> {System.out.println( "(CHARS, \""+t.image+"\")" ); count++;} |
+   t = <CHAR> {System.out.println( "(CHAR, \""+t.image+"\")" ); count++;} |
+   t = <LONG> {System.out.println( "(LONG, \""+t.image+"\")" ); count++;} |
+   t = <LONGS> {System.out.println( "(LONGS, \""+t.image+"\")" ); count++;} |
+   t = <INT> {System.out.println( "(INT, \""+t.image+"\")" ); count++;} |
+   t = <ELSE> {System.out.println( "(ELSE, \""+t.image+"\")" ); count++;} |
+   t = <IF> {System.out.println( "(IF, \""+t.image+"\")" ); count++;} |
+   t = <WHILE> {System.out.println( "(WHILE, \""+t.image+"\")" ); count++;} |
+   t = <DO> {System.out.println( "(DO, \""+t.image+"\")" ); count++;} |
+   t = <FOR> {System.out.println( "(FOR, \""+t.image+"\")" ); count++;} |
+   t = <CONTINUE> {System.out.println( "(CONTINUE, \""+t.image+"\")" ); count++;} |
+   t = <BREAK> {System.out.println( "(BREAK, \""+t.image+"\")" ); count++;} |
+   t = <RETURN> {System.out.println( "(RETURN, \""+t.image+"\")" ); count++;} |
+   t = <DOUBLES> {System.out.println( "(DOUBLES, \""+t.image+"\")" ); count++;} |
+   t = <DOUBLE> {System.out.println( "(DOUBLE, \""+t.image+"\")" ); count++;} |
+   t = <PRINTING_CHAR> {System.out.println( "(PRINTING_CHAR, \""+t.image+"\")" ); count++;} |
+   t = <OTHER_CHAR> {System.out.println( "(OTHER_CHAR, \""+t.image+"\")" ); count++;} |
+   t = <LBRAC> {System.out.println( "(LBRAC, \""+t.image+"\")" ); count++;} |
+   t = <RBRAC> {System.out.println( "(RBRAC, \""+t.image+"\")" ); count++;} |
+   t = <INTEGER_CONST> {System.out.println( "(INTEGER_CONST, \""+t.image+"\")" ); count++;} |
+   t = <CHAR_CONST> {System.out.println( "(CHAR_CONST, \""+t.image+"\")" ); count++;} |
+   t = <DIGIT> {System.out.println( "(DIGIT, \""+t.image+"\")" ); count++;} |
+   t = <OCTAL> {System.out.println( "(OCTAL, \""+t.image+"\")" ); count++;} |
+   t = <HEX_DIGIT> {System.out.println( "(HEX_DIGIT, \""+t.image+"\")" ); count++;} |
+   t = <LETTER> {System.out.println( "(LETTER, \""+t.image+"\")" ); count++;} |
+   t = <COMMA> {System.out.println( "(COMMA, \""+t.image+"\")" ); count++;} |
+   t = <EQUAL> {System.out.println( "(EQUAL, \""+t.image+"\")" ); count++;} |
+   t = <AND> {System.out.println( "(AND, \""+t.image+"\")" ); count++;} |
+   t = <OR> {System.out.println( "(OR, \""+t.image+"\")" ); count++;} |
+   t = <ANDAND> {System.out.println( "(ANDAND, \""+t.image+"\")" ); count++;} |
+   t = <EQUALEQUAL> {System.out.println( "(EQUALEQUAL, \""+t.image+"\")" ); count++;} |
+   t = <NOTEQUAL> {System.out.println( "(NOTEQUAL, \""+t.image+"\")" ); count++;} |
+   t = <LESS> {System.out.println( "(LESS, \""+t.image+"\")" ); count++;} |
+   t = <GREATER> {System.out.println( "(GREATER, \""+t.image+"\")" ); count++;} |
+   t = <LESSEQUAL> {System.out.println( "(LESSEQUAL, \""+t.image+"\")" ); count++;} |
+   t = <GREATEQUAL> {System.out.println( "(GREATEQUAL, \""+t.image+"\")" ); count++;} |
+   t = <PLUS> {System.out.println( "(PLUS, \""+t.image+"\")" ); count++;} |
+   t = <MINUS> {System.out.println( "(MINUS, \""+t.image+"\")" ); count++;} |
+   t = <MULTIPLE> {System.out.println( "(MULTIPLE, \""+t.image+"\")" ); count++;} |
+   t = <DIVIDE> {System.out.println( "(DIVIDE, \""+t.image+"\")" ); count++;} |
+   t = <MOD> {System.out.println( "(MOD, \""+t.image+"\")" ); count++;} |
+   t = <DOUBLE_CONST> {System.out.println( "(DOUBLE, \""+t.image+"\")" ); count++;}
+  )+
+  {return count;}
+}
+

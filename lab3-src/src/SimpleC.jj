@@ -1,0 +1,686 @@
+PARSER_BEGIN(SimpleC)
+  package simplec.parse;
+
+  import static simplec.AST.*;
+  import java.util.*;
+
+  public class SimpleC {
+
+    /** Main entry point. */
+    public static void main(String args[]) throws ParseException {
+      //TokenizeTest(); //- Lab 1
+      //ParseTest();    //- Lab 2
+      // Note: Lab 3 is called through the AST class,
+      // So if you want, feel free to remove these methods
+      // This other stuff is left for you if you want to test
+      // using it
+    }
+
+    public static void TokenizeTest() throws ParseException {
+      SimpleC parser = new SimpleC(System.in);
+      parser.Input();
+    }
+
+    public static void ParseTest() {
+      try {
+        Unit.Program prog = new SimpleC(System.in).goal();
+      } catch (Exception e) {
+        System.out.println("Parsing related error");
+      }
+    }
+  }
+
+
+PARSER_END(SimpleC)
+
+  SKIP :
+{
+    " "
+  | "\t"
+  | "\n"
+  | "\r"
+}
+
+SKIP : //comments
+{
+    < "//" (~["\r", "\n"])* >
+  | < "/*" > : ML_COMMENT_STATE
+}
+
+<ML_COMMENT_STATE> SKIP :
+{
+    < "*/" > : DEFAULT
+  | < ~[] >   
+}
+
+TOKEN :
+{
+    /* Pragma directives */
+    <PRAGMA           : "#pragma" (~["\r", "\n"])* >
+
+    /* Types  */
+  | <VOID             : "void">
+  | <LONG             : "long">
+  | <LONG_STAR        : "long*">
+  | <CHAR             : "char">
+  | <CHAR_STAR        : "char*">
+  | <CHAR_STAR_STAR   : "char**">
+  | <DOUBLE           : "double">
+  | <DOUBLE_STAR      : "double*">
+
+    /* Control flow */
+  | <IF               : "if">
+  | <ELSE             : "else">
+  | <DO               : "do">
+  | <WHILE            : "while">
+  | <FOR              : "for">
+  | <CONTINUE         : "continue">
+  | <BREAK            : "break">
+  | <RETURN           : "return">
+
+    /* Operators */
+  | <ADD              : "+">
+  | <MIN              : "-">
+  | <MUL              : "*">
+  | <DIV              : "/">
+  | <MOD              : "%">
+  | <EQUAL            : "=">
+  | <AMP              : "&">
+  | <AMPAMP           : "&&">
+  | <OROR             : "||">
+  | <EQUALEQUAL       : "==">
+  | <NOTEQUAL         : "!=">
+  | <GREATEQUAL       : ">=">
+  | <LESSEQUAL        : "<=">
+  | <COMMA            : ",">
+  | <SEMICOLON        : ";">
+  | <LPAREN           : "(">
+  | <RPAREN           : ")">
+  | <LBRACK           : "[">
+  | <RBRACK           : "]">
+  | <LCURLY           : "{">
+  | <RCURLY           : "}">
+  | <LANGLE           : "<">
+  | <RANGLE           : ">">
+
+  /* Character string related tokens */
+  | <ID               : <LET> (<LET> | <DEC> | "_")*>
+  | <C_CONST          : "'" ( 
+      <PRINT>                     /* Regular characters*/
+      | "\\" (<OCT>){1,3}         /* Octal character constants */
+      | "\\x" (<HEX>){2}          /* Hex character constants */
+      | "\\" <PRINT>              /* Escaped characters */
+      | "\""                      /* Allow double quotes */
+      | "\\" "'"                  /* Allow escaped single quotes */
+      ) 
+  "'">
+  | <STR_CONST        : "\"" (
+      <PRINT>             /* Regular characters */
+      | ("\\" <PRINT>)    /* Allow escaped regular characters */
+      | ("\\" "\"")       /* Allow escaped double quotes */
+      | "'"               /* Allow single quotes */
+      )* 
+  "\"">
+
+  /* Basic regular definitions for characters */
+  | <INT_CONST        : (<DEC>)+        /* Decimal or Octal integer constants */
+                      | "0x" (<HEX>)+>  /* Hex constants */
+  | <DOUBLE_CONST     : (<DEC>)* (".")? (<DEC>)+ (("e"|"E") ("-"|"+")? (<DEC>)+)?>
+  | <DEC              : ["0"-"9"]>
+  | <PRINT            : <LET> | <DEC> | <OTHER>>
+  | <OCT              : ["0"-"7"]>
+  | <HEX              : <DEC> | ["A"-"F"] | ["a"-"f"]>
+  | <LET              : ["A"-"Z"] | ["a"-"z"]>
+  | <OTHER            : " " | "!" | "#" | "$" | "%" | "&" | "(" | ")" | "*" | "+" 
+                      | "," | "-" | "." | "/" | ":" | ";" | "<" | "=" | ">" 
+                      | "?" | "@" | "[" | "]" | "^" | "_" | "`" | "{" | "|" 
+                      | "}" | "~" >
+}
+
+/* Root production. */
+
+// Note that we've omitted having a Goal class,
+// and just go straight to producing a program,
+// since they're pretty much the same thing
+Unit.Program goal(): 
+{
+  Unit.Program program;
+} 
+{ 
+  program = program() <EOF>
+  { 
+    return program;
+  }
+}
+
+Unit.Program program(): 
+{
+  List<FunctionOrVarList> fovList = 
+    new LinkedList<FunctionOrVarList>();
+  FunctionOrVarList fov;
+} 
+{ 
+  (fov = function_or_var() { fovList.add(fov); })*
+  {
+    return new Unit.Program(ID("Main"), fovList);
+  }
+}
+
+FunctionOrVarList function_or_var():
+{
+  Token varType;
+  Token id;
+  FunctionOrVarList fov;
+}
+{
+  varType = var_type() 
+  id = <ID> 
+  fov = function_or_var_tail(id, varType)
+  {
+    return fov;
+  }
+}
+
+FunctionOrVarList function_or_var_tail(Token id, Token varType):
+{
+  FunctionOrVarList fov;
+}
+{
+    fov = function(id, varType)   { return fov; }
+  | fov = global_var(id, varType) { return fov; }
+}
+
+FunctionOrVarList.Function function(Token id, Token varType):
+{
+  Statement.CompoundStatement cStmt; 
+  List<Value.Argument> argList;
+}
+{
+  <LPAREN> argList = arguments() <RPAREN> cStmt = compound_statement()
+  {
+    return new FunctionOrVarList.Function(id, varType, argList, cStmt);
+  }
+}
+
+List<Value.Argument> arguments():
+{
+  List<Value.Argument> argList = new LinkedList<Value.Argument>();
+}
+{
+  ( argList = arg_list())?
+  { return argList; }
+}
+
+List<Value.Argument> arg_list():
+{
+  Value.Argument arg;
+  List<Value.Argument> argList = new LinkedList<Value.Argument>();
+}
+{
+  arg = arg() { argList.add(arg); }
+  (<COMMA> arg = arg() { argList.add(arg); } )*
+  { return argList; }
+}
+
+Value.Argument arg():
+{
+  Token id;
+  Token varType;
+}
+{
+  varType = var_type() id = <ID>
+  { return new Value.Argument(id, varType); }
+}
+
+FunctionOrVarList.VariableList global_var(Token lastVar, Token varType):
+{
+  List<Value.Variable> vars = new LinkedList<Value.Variable>();
+  vars.add(new Value.Variable(lastVar, varType));
+  Token varName;
+}
+{
+  ( varName = global_var_list() { 
+      vars.add(new Value.Variable(varName, varType));
+    })* <SEMICOLON>
+  {
+    return new FunctionOrVarList.VariableList(vars, true);
+  }
+}
+
+Token global_var_list(): { Token id; }
+{
+  <COMMA> id = <ID> { return id; }
+}
+
+Token var_type():
+{
+  Token id;
+}
+{
+    id = <CHAR>           { return id; }
+  | id = <CHAR_STAR>      { return id; }
+  | id = <CHAR_STAR_STAR> { return id; }
+  | id = <DOUBLE>         { return id; }
+  | id = <DOUBLE_STAR>    { return id; }
+  | id = <LONG>           { return id; }
+  | id = <LONG_STAR>      { return id; }
+  | id = <VOID>           { return id; }
+}
+
+Statement.AssignStatement assignment(Token varName):
+{
+  Token id;
+  Expression expr;
+  Expression index;
+}
+{
+    id = <EQUAL> expr = expression()
+      { return new Statement.AssignStatement(id, varName, expr); }
+  | <LBRACK> index = expression() <RBRACK> id = <EQUAL> expr = expression()
+      { return new Statement.AssignStatement(id, varName, index, expr); }
+}
+
+Expression.Call call(Token idName):
+{
+  List<Expression> args;
+}
+{
+  <LPAREN> args = call_arguments() <RPAREN>
+  { return new Expression.Call(idName, args); } // TODO
+}
+
+List<Expression> call_arg_list():
+{
+  List<Expression> args = new LinkedList<Expression>();
+  Expression expr;
+}
+{
+  expr = expression() { args.add(expr); } 
+  (<COMMA> expr = expression() { args.add(expr); })*
+  { return args; }
+}
+
+List<Expression> call_arguments():
+{
+  List<Expression> args = new LinkedList<Expression>();
+}
+{
+  (args = call_arg_list())?
+  { return args; }
+}
+
+Token eql_op(): { Token op; }
+{
+    op = <EQUALEQUAL> { return op; }
+  | op = <NOTEQUAL>   { return op; }
+}
+
+Token cmp_op(): { Token op; }
+{
+    op = <LANGLE>     { return op; }
+  | op = <RANGLE>     { return op; }
+  | op = <GREATEQUAL> { return op; }
+  | op = <LESSEQUAL>  { return op; }
+}
+
+Token add_op(): { Token op; }
+{
+    op = <ADD> { return op; }
+  | op = <MIN> { return op; }
+}
+
+Token mul_op(): { Token op; }
+{
+    op = <MUL> { return op; }
+  | op = <DIV> { return op; }
+  | op = <MOD> { return op; }
+}
+
+Token unary_op(): { Token op; }
+{
+    op = <MUL> { return op; }
+  | op = <ADD> { return op; }
+  | op = <MIN> { return op; }
+  | op = <AMP> { return op; }
+}
+
+Expression expression():
+{
+  Expression current;
+}
+{
+  current = logical_or_expr()
+  { return current; }
+}
+
+// Note that logical_or_expr is how you should correctly implement
+// most of the other expr methods. The other methods have been
+// left up to you, but are half implemented so that primary_expr()
+// will work, and so ints, chars, etc will work out of the box
+// TODO: make it so they don't ignore the right side of the expr :p
+Expression logical_or_expr():
+{
+  Expression lhs, rhs, current;
+  Token op;
+}
+{
+  lhs = logical_and_expr() { current = lhs; }
+  (op = <OROR> rhs = logical_or_expr()
+  { current = new Expression.Binary.Or(op, current, rhs); })?
+  { return current; }
+}
+
+Expression logical_and_expr():
+{
+  Expression lhs, rhs, current;
+  Token op;
+}
+{
+  lhs = equality_expr() {current = lhs;} 
+  (op = <AMPAMP> rhs = logical_and_expr()
+  {current = new Expression.Binary.And(op, current, rhs); })? 
+  { return current; } // TODO
+}
+
+Expression equality_expr():
+{
+  Expression lhs, rhs, current;
+  Token op;
+}
+{
+  lhs = relational_expr() {current = lhs;}
+  ( op = eql_op() rhs = equality_expr()
+  {current = new Expression.Binary.Equal(op, current,rhs);} )?
+  { return current; } // TODO
+}
+
+Expression relational_expr():
+{
+  Expression lhs, rhs, current;
+  Token op;
+}
+{
+  lhs = additive_expr(){current = lhs;} 
+  (op = cmp_op() rhs = relational_expr()
+  {current = new Expression.Binary.Relation(op, current,rhs);} )?
+  { return current; } // TODO
+}
+
+Expression additive_expr():
+{
+  Expression lhs, rhs, current;
+  Token op;
+}
+{
+  lhs = multiplicative_expr() {current = lhs;} 
+  (op = add_op() rhs = additive_expr()
+  {current = new Expression.Binary.Add(op,current,rhs);})?
+  { return current; } // TODO
+}
+
+Expression multiplicative_expr():
+{
+  Expression lhs, rhs, current;
+  Token op;
+}
+{
+  lhs = unary_expr(){current = lhs;}
+  (op = mul_op() rhs = multiplicative_expr()
+  {current = new Expression.Binary.Mul(op,current,rhs);})?
+  { return current; } // TODO
+}
+
+Expression unary_expr():
+{
+  Expression lhs;
+  Token op;
+  Expression unary = null;
+}
+{
+    lhs = primary_expr()    { return lhs; }
+  | op = unary_op() lhs = unary_expr() 
+    { 
+      switch(op.image) {
+        case "&": unary = new Expression.Unary.Ref(op, lhs); break;
+        case "*": unary = new Expression.Unary.Multiple(op, lhs); break; // TODO
+        case "+": unary = new Expression.Unary.Positive(op, lhs); break;
+        case "-": unary = new Expression.Unary.Negative(op, lhs); break; // TODO
+      }
+      return unary; 
+    }
+}
+
+Expression primary_expr():
+{
+  Token id;
+  Expression expr = null;
+}
+{
+    id = <STR_CONST>
+    { return new Expression.ID(id); } // TODO
+  | id = <C_CONST>
+    { return new Expression.Char(id, id.image); }
+  | id = <ID> expr = primary_expr_tail(id)
+    { return expr; }
+  | id = <INT_CONST>
+    { return new Expression.Int(id, id.image); }
+  | id = <DOUBLE_CONST> 
+    { return new Expression.Double(id, Double.parseDouble(id.image)); } // TODO
+  | <LPAREN> expr = expression() <RPAREN>
+    { return expr; }
+}
+
+Expression primary_expr_tail(Token idName):
+{
+  Expression expr;
+}
+{
+    <LBRACK> expr = expression() <RBRACK>
+    { return new Expression.Array(idName, expr); }
+  | expr = call(idName)
+    { return expr; } // TODO
+  | // Empty
+    {return new Expression.ID(idName); }
+}
+
+Statement.CompoundStatement compound_statement():
+{
+  List<Statement> stmtList;
+}
+{
+  <LCURLY> stmtList = statement_list_opt() <RCURLY>
+  { return new Statement.CompoundStatement(ID("Compound"), stmtList); }
+}
+
+List<Statement> statement_list_opt():
+{
+  List<Statement> stmtList = new LinkedList<Statement>();
+}
+{
+  (stmtList = statement_list())? { return stmtList; }
+}
+
+List<Statement> statement_list():
+{
+  List<Statement> stmtList = new LinkedList<Statement>();
+  Statement stmt;
+}
+{
+  (stmt = statement() { stmtList.add(stmt); } )+
+  { return stmtList; }
+}
+
+Statement.VariableDecls local_var():
+{
+  List<Value.Variable> vars;
+  Token type;
+}
+{
+  type = var_type() 
+  vars = local_var_list(type) <SEMICOLON>
+  { return new Statement.VariableDecls(ID("VariableDecls"), vars); }
+}
+
+List<Value.Variable> local_var_list(Token varType):
+{
+  List<Value.Variable> vars = new LinkedList<Value.Variable>();
+  Token id;
+}
+{
+  id = <ID> {vars.add(new Value.Variable(id, varType));}
+  (<COMMA> id = <ID>{vars.add(new Value.Variable(id,varType));})* 
+  { return vars; } // TODO: Add variables to the list
+}
+
+Statement statement():
+{
+  Statement stmt;
+  Token varName;
+  Token varName2;
+  Statement.AssignStatement init = null;
+  Expression cond = null;
+  Statement.AssignStatement update = null;
+  Statement body = null;
+  Statement elseStmt = null;
+}
+{
+    stmt = compound_statement()
+    { return stmt; }
+  | stmt = local_var()
+    { return stmt; }
+  | varName = <ID> stmt = statement_tail(varName)
+    { return stmt; }
+  | <IF> <LPAREN> cond = expression() <RPAREN> body = statement() elseStmt = else_optional()
+    { return new Statement.IfStatement(ID("If"), cond, body, elseStmt); } // TODO
+  | <WHILE> <LPAREN> cond = expression() <RPAREN> body = statement()
+    { return new Statement.WhileStatement(ID("While"), cond, body); } // TODO
+  | <DO> body = statement() <WHILE> <LPAREN> cond = expression() <RPAREN> <SEMICOLON>
+    {return new Statement.DoWhileStatement(ID("DoWhile"), cond, body);}
+  | <FOR> <LPAREN> varName = <ID> init = assignment(varName) <SEMICOLON> cond = expression() <SEMICOLON> varName2 = <ID> update = assignment(varName2) <RPAREN> body = statement()
+    {return new Statement.ForStatement(ID("For"), init, cond, update, body);}
+    // TODO, right now all the variables are null :)
+  | stmt = jump_statement()
+    { return stmt; }
+}
+
+Statement statement_tail(Token varName):
+{
+  Statement stmt;
+  Expression expr;
+}
+{
+    stmt = assignment(varName) <SEMICOLON>
+    { return stmt; } 
+  | expr = call(varName) <SEMICOLON>
+    { return new Statement.CallStatement(varName, expr); } // TODO
+}
+
+Statement else_optional():
+{
+  Statement stmt = null;
+  Statement elseStmt = null;
+}
+{
+  (LOOKAHEAD(1) <ELSE> stmt = statement() 
+    {
+      elseStmt = stmt; // TODO
+    })? 
+  {return elseStmt;}
+}
+
+Statement jump_statement():
+{
+  Token jump;
+  Expression expr;
+}
+{
+    jump = <CONTINUE> <SEMICOLON>
+    { return new Statement.ContinueStatement(ID("Continue")); } // TODO
+  | jump = <BREAK> <SEMICOLON>
+    { return new Statement.BreakStatement(ID("Break")); }
+  | jump = <RETURN> expr = return_val_opt() <SEMICOLON>
+    { return new Statement.ReturnStatement(ID("Return"),expr); } // TODO, see ReturnStatement class
+}
+
+Expression return_val_opt():
+{
+  Expression expr = null;
+}
+{
+  (expr = expression())?
+  { return expr; }
+}
+
+/* ******************************************************************
+
+      Below this is from lab 1, remove if you want (doesn't matter)
+
+   ****************************************************************** */
+
+void Input() :
+{ int count; }
+{
+  count=anytoken() <EOF>
+  { System.out.println("Total Tokens: " + count); }
+}
+
+int anytoken():
+{
+  Token t;
+  int count=0;
+}
+{
+  (
+   t = <VOID>       { System.out.println("(VOID, \""+t.image+"\")" );       count++;} |
+   t = <LONG>       { System.out.println("(LONE, \""+t.image+"\")" );       count++;} |
+   t = <LONG_STAR>    { System.out.println("(LONG_STAR, \""+t.image+"\")" );    count++;} |
+   t = <CHAR_STAR>    { System.out.println("(CHAR_STAR, \""+t.image+"\")" );    count++;} |
+   t = <CHAR_STAR_STAR> { System.out.println("(CHAR_STAR_STAR, \""+t.image+"\")" ); count++;} |
+   t = <DOUBLE>        { System.out.println("(DOUBLE, \""+t.image+"\")" );        count++;} |
+   t = <DOUBLE_STAR>     { System.out.println("(DOUBLE_STAR, \""+t.image+"\")" );     count++;} |
+   t = <IF>         { System.out.println("(IF, \""+t.image+"\")" );         count++;} |
+   t = <ELSE>         { System.out.println("(ELSE, \""+t.image+"\")" );         count++;} |
+   t = <DO>         { System.out.println("(DO, \""+t.image+"\")" );         count++;} |
+   t = <WHILE>       { System.out.println("(WHILE, \""+t.image+"\")" );       count++;} |
+   t = <FOR>        { System.out.println("(FOR, \""+t.image+"\")" );        count++;} |
+   t = <CONTINUE>   { System.out.println("(CONTINUE, \""+t.image+"\")" );        count++;} |
+   t = <BREAK>        { System.out.println("(BREAK, \""+t.image+"\")" );        count++;} |
+   t = <RETURN>        { System.out.println("(RETURN, \""+t.image+"\")" );        count++;} |
+   t = <ADD>        { System.out.println("(ADD, \""+t.image+"\")" );        count++;} |
+   t = <MIN>        { System.out.println("(MIN, \""+t.image+"\")" );        count++;} |
+   t = <MUL>        { System.out.println("(MUL, \""+t.image+"\")" );        count++;} |
+   t = <DIV>        { System.out.println("(DIV, \""+t.image+"\")" );        count++;} |
+   t = <MOD>        { System.out.println("(MOD, \""+t.image+"\")" );        count++;} |
+   t = <EQUAL>        { System.out.println("(EQUAL, \""+t.image+"\")" );        count++;} |
+   t = <AMP>        { System.out.println("(AMP, \""+t.image+"\")" );        count++;} |
+   t = <AMPAMP>       { System.out.println("(2AMP, \""+t.image+"\")" );       count++;} |
+   t = <OROR>       { System.out.println("(2BAR, \""+t.image+"\")" );       count++;} |
+   t = <EQUALEQUAL>       { System.out.println("(2EQUAL, \""+t.image+"\")" );       count++;} |
+   t = <NOTEQUAL>       { System.out.println("(NOTEQUAL, \""+t.image+"\")" );       count++;} |
+   t = <LESSEQUAL>       { System.out.println("(LESSEQUAL, \""+t.image+"\")" );       count++;} |
+   t = <GREATEQUAL>       { System.out.println("(GREATEQUAL, \""+t.image+"\")" );       count++;} |
+   t = <COMMA>       { System.out.println("(COMMA, \""+t.image+"\")" );       count++;} |
+   t = <SEMICOLON>       { System.out.println("(SEMICOLON, \""+t.image+"\")" );       count++;} |
+   t = <LPAREN>     { System.out.println("(LPAREN, \""+t.image+"\")" );     count++;} |
+   t = <RPAREN>     { System.out.println("(RPAREN, \""+t.image+"\")" );     count++;} |
+   t = <LBRACK>     { System.out.println("(LBRACK, \""+t.image+"\")" );     count++;} |
+   t = <RBRACK>     { System.out.println("(RBRACK, \""+t.image+"\")" );     count++;} |
+   t = <LCURLY>     { System.out.println("(LCURLY, \""+t.image+"\")" );     count++;} |
+   t = <RCURLY>     { System.out.println("(RCURLY, \""+t.image+"\")" );     count++;} |
+   t = <LANGLE>     { System.out.println("(LANGLE, \""+t.image+"\")" );     count++;} |
+   t = <RANGLE>     { System.out.println("(RANGLE, \""+t.image+"\")" );     count++;} |
+   t = <ID>         { System.out.println("(ID, \""+t.image+"\")" );         count++;} |
+   t = <C_CONST>    { System.out.println("(C_CONST, \""+t.image+"\")" );    count++;} |
+   t = <DOUBLE_CONST>  { System.out.println("(DOUBLE_CONST, \""+t.image+"\")" );  count++;} | 
+   t = <STR_CONST>  { System.out.println("(STR_CONST, \""+t.image+"\")" );  count++;} | 
+   t = <INT_CONST>  { System.out.println("(INT_CONST, \""+t.image+"\")" );  count++;} |
+   t = <PRINT>      { System.out.println("(PRINT, \""+t.image+"\")" );      count++;} |
+   t = <DEC>        { System.out.println("(DEC, \""+t.image+"\")" );        count++;} |
+   t = <OCT>        { System.out.println("(OCT, \""+t.image+"\")" );        count++;} |
+   t = <HEX>        { System.out.println("(HEX, \""+t.image+"\")" );        count++;} |
+   t = <LET>        { System.out.println("(LET, \""+t.image+"\")" );        count++;} |
+   t = <OTHER>      { System.out.println("(OTHER, \""+t.image+"\")" );      count++;} |
+   t = <PRAGMA>     {}
+  )+
+  {return count;}
+}
